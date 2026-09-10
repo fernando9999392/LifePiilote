@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#8b5cff">
+<title>LifePilote</title>
+<style>
+:root{--bg:#070914;--card:#11172d;--card2:#1a2240;--text:#f8f8ff;--muted:#9da7c6;--a:#8b5cff;--b:#00d9c7;--border:#2a3457}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 15% 0,#291454,#070914 45%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif;padding-bottom:76px}
+.app{max-width:850px;margin:auto;padding:16px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;gap:11px;align-items:center}
+.logo{width:45px;height:45px;border-radius:15px;background:linear-gradient(135deg,var(--a),var(--b));display:grid;place-items:center;font-weight:900}
+.brand h1{margin:0}
+.brand small{color:var(--muted)}
+.online{font-size:12px;color:#71f3d7}
+.page{display:none}
+.page.active{display:block}
+.hero,.card{background:#11172df2;border:1px solid var(--border);border-radius:20px;padding:16px;margin-top:14px}
+.hero h2{margin:0 0 6px}
+.muted{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{font-size:28px;font-weight:900}
+.chat{height:72vh;display:flex;flex-direction:column}
+.messages{flex:1;overflow:auto}
+.msg{max-width:84%;padding:12px 14px;border-radius:16px;margin:8px 0;line-height:1.45;white-space:pre-wrap}
+.ai{background:var(--card2);border:1px solid var(--border)}
+.me{background:linear-gradient(135deg,var(--a),#667dff);margin-left:auto}
+.composer{display:flex;gap:8px}
+.composer textarea{flex:1;resize:none;border:1px solid var(--border);background:#0b1021;color:white;border-radius:14px;padding:12px}
+.send,.primary{border:0;border-radius:13px;background:linear-gradient(135deg,var(--a),#667dff);color:#fff;font-weight:800;padding:11px 15px}
+.row{display:flex;gap:10px;align-items:center;background:var(--card2);padding:11px;border-radius:12px;margin:7px 0}
+.row button{margin-left:auto}
+.bottom{position:fixed;bottom:0;left:0;right:0;height:68px;background:#0a0e1df2;backdrop-filter:blur(15px);border-top:1px solid var(--border);z-index:5}
+.nav{max-width:850px;height:100%;margin:auto;display:grid;grid-template-columns:repeat(5,1fr)}
+.nav button{border:0;background:transparent;color:var(--muted);font-size:10px}
+.nav button b{display:block;font-size:21px}
+.nav button.active{color:#fff}
+.input{width:100%;padding:11px;border-radius:11px;border:1px solid var(--border);background:#0b1021;color:#fff}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header class="top">
+<div class="brand">
+<div class="logo">LP</div>
+<div>
+<h1>LifePilote</h1>
+<small>Seu copiloto pessoal</small>
+</div>
+</div>
+<div class="online">● Online</div>
+</header>
+
+<section id="home" class="page active">
+<div class="hero">
+<h2>Seu painel</h2>
+<p class="muted">A IA pode conversar e executar ações nas suas áreas.</p>
+</div>
+
+<div class="grid">
+<div class="card">
+<b>📅 Agenda</b>
+<div class="stat" id="ec">0</div>
+<span class="muted">compromissos</span>
+</div>
+
+<div class="card">
+<b>✅ Tarefas</b>
+<div class="stat" id="tc">0</div>
+<span class="muted">pendentes</span>
+</div>
+</div>
+</section>
+
+<section id="agenda" class="page">
+<div class="hero">
+<h2>📅 Agenda</h2>
+<div id="events"></div>
+</div>
+</section>
+
+<section id="tasks" class="page">
+<div class="hero">
+<h2>✅ Tarefas</h2>
+<div id="tasksList"></div>
+</div>
+</section>
+
+<section id="goals" class="page">
+<div class="hero">
+<h2>🎯 Objetivos</h2>
+<div id="goals"></div>
+</div>
+</section>
+
+<section id="ai" class="page">
+<div class="card chat">
+<div class="messages" id="messages">
+<div class="msg ai">
+Olá! Eu sou o LifePilote. 🧠
+
+Agora estou conectado ao cérebro online. Posso conversar com você e, quando apropriado, criar tarefas, concluir tarefas, criar compromissos e objetivos.
+</div>
+</div>
+
+<div class="composer">
+<textarea id="input" placeholder="Ex.: amanhã às 9h tenho reunião com João e preciso lembrar de estudar às 14h"></textarea>
+<button class="send" onclick="send()">Enviar</button>
+</div>
+</div>
+</section>
+
+</div>
+
+<nav class="bottom">
+<div class="nav">
+<button class="active" onclick="go('home',this)"><b>⌂</b>Início</button>
+<button onclick="go('agenda',this)"><b>◷</b>Agenda</button>
+<button onclick="go('tasks',this)"><b>✓</b>Tarefas</button>
+<button onclick="go('goals',this)"><b>🎯</b>Objetivos</button>
+<button onclick="go('ai',this)"><b>✦</b>IA</button>
+</div>
+</nav>
+
+<script>
+const $=id=>document.getElementById(id);
+
+function go(p,b){
+document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+$(p).classList.add('active');
+document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
+b.classList.add('active');
+refresh();
+}
+
+function add(t,c){
+let d=document.createElement('div');
+d.className='msg '+c;
+d.textContent=t;
+$('messages').appendChild(d);
+$('messages').scrollTop=1e9;
+}
+
+async function send(){
+let x=$('input').value.trim();
+if(!x)return;
+
+add(x,'me');
+$('input').value='';
+
+try{
+let r=await fetch('/api/chat',{
+method:'POST',
+headers:{'Content-Type':'application/json'},
+body:JSON.stringify({message:x})
+});
+
+let d=await r.json();
+
+if(!r.ok)throw Error();
+
+add(d.reply||'Sem resposta.','ai');
+refresh();
+
+}catch(e){
+add('Não consegui acessar o cérebro online. Verifique a internet e o servidor.','ai');
+}
+}
+
+$('input').addEventListener('keydown',e=>{
+if(e.key==='Enter'&&!e.shiftKey){
+e.preventDefault();
+send();
+}
+});
+
+async function refresh(){
+try{
+let r=await fetch('/api/state');
+let s=await r.json();
+
+$('tc').textContent=s.tasks.filter(x=>!x.done).length;
+$('ec').textContent=s.events.length;
+
+$('tasksList').innerHTML=s.tasks.map(x=>`
+<div class="row">
+<span>${x.done?'☑️':'⬜'}</span>
+<span>${esc(x.text)}<br><small class="muted">${x.priority||'media'}</small></span>
+</div>
+`).join('')||'<p class="muted">Nenhuma tarefa.</p>';
+
+$('events').innerHTML=s.events.map(x=>`
+<div class="row">
+📅 <span>${esc(x.title)}<br><small class="muted">${esc(x.datetime)}</small></span>
+</div>
+`).join('')||'<p class="muted">Nenhum compromisso.</p>';
+
+$('goals').innerHTML=s.goals.map(x=>`
+<div class="row">🎯 ${esc(x.text)}</div>
+`).join('')||'<p class="muted">Nenhum objetivo.</p>';
+
+}catch(e){}
+}
+
+function esc(s){
+return String(s).replace(/[&<>"']/g,m=>({
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#039;'
+}[m]));
+}
+
+refresh();
+</script>
+
+</body>
+</html>
