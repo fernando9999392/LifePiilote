@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -12,34 +12,37 @@
   padding:0;
 }
 
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 20% 0%,#29115f 0%,transparent 35%),
-    radial-gradient(circle at 90% 20%,#102e67 0%,transparent 35%),
-    #050817;
-  color:#f4f5ff;
-  overflow-x:hidden;
+:root{
+  --bg:#050817;
+  --card:#0d1530;
+  --card2:#121b3b;
+  --text:#f5f6ff;
+  --muted:#8d97bd;
+  --purple:#9b5cff;
+  --blue:#557cff;
+  --cyan:#27dfc3;
+  --gold:#ffc94f;
 }
 
-body:before{
-  content:"";
-  position:fixed;
-  width:500px;
-  height:500px;
-  background:rgba(125,65,255,.12);
-  filter:blur(100px);
-  top:-200px;
-  right:-150px;
-  pointer-events:none;
+body{
+  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 15% 0%,#32136b 0%,transparent 32%),
+    radial-gradient(circle at 90% 15%,#112e68 0%,transparent 32%),
+    var(--bg);
+}
+
+button,textarea{
+  font-family:inherit;
 }
 
 .app{
   width:100%;
   max-width:1100px;
   margin:auto;
-  padding:18px 18px 120px;
+  padding:16px 16px 120px;
 }
 
 /* HEADER */
@@ -48,7 +51,7 @@ body:before{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:8px 4px 20px;
+  padding:5px 4px 20px;
 }
 
 .brand{
@@ -58,92 +61,74 @@ body:before{
 }
 
 .logo{
-  width:58px;
-  height:58px;
-  border-radius:19px;
+  width:55px;
+  height:55px;
+  border-radius:18px;
   display:flex;
   align-items:center;
   justify-content:center;
+  font-size:21px;
   font-weight:900;
-  font-size:22px;
-  background:linear-gradient(135deg,#9b4dff,#168fff,#17d6c4);
-  box-shadow:0 0 28px rgba(104,69,255,.45);
+  background:linear-gradient(135deg,#a04cff,#347cff,#18d9c5);
+  box-shadow:0 0 30px rgba(119,65,255,.5);
 }
 
 .brand h1{
-  font-size:31px;
-  letter-spacing:-1px;
+  font-size:29px;
 }
 
 .brand p{
-  color:#a8afd0;
-  font-size:15px;
-  margin-top:3px;
+  color:var(--muted);
+  margin-top:4px;
+  font-size:14px;
 }
 
 .online{
-  color:#62f5dc;
-  font-size:14px;
   display:flex;
   align-items:center;
   gap:7px;
+  color:#62f4db;
+  font-size:14px;
 }
 
-.online span{
+.online i{
   width:8px;
   height:8px;
   border-radius:50%;
-  background:#55efd7;
-  box-shadow:0 0 12px #55efd7;
+  background:#54efd6;
+  box-shadow:0 0 12px #54efd6;
+}
+
+/* PAGES */
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
 }
 
 /* CHAT */
 
 .chat-card{
-  min-height:650px;
-  border:1px solid rgba(105,107,255,.45);
+  min-height:670px;
+  border:1px solid rgba(102,102,255,.45);
   border-radius:28px;
-  padding:22px;
-  background:rgba(10,17,42,.82);
+  padding:18px;
+  background:rgba(9,16,39,.84);
   backdrop-filter:blur(20px);
-  box-shadow:
-    0 25px 80px rgba(0,0,0,.35),
-    inset 0 1px rgba(255,255,255,.04);
+  box-shadow:0 25px 80px rgba(0,0,0,.35);
 }
 
 .messages{
-  min-height:520px;
+  min-height:535px;
+  max-height:calc(100vh - 310px);
+  overflow-y:auto;
   display:flex;
   flex-direction:column;
-  gap:16px;
-  overflow-y:auto;
-  padding:5px 2px 20px;
-}
-
-.message{
-  max-width:78%;
-  padding:15px 18px;
-  border-radius:20px;
-  line-height:1.55;
-  font-size:17px;
-  animation:appear .25s ease;
-}
-
-@keyframes appear{
-  from{opacity:0;transform:translateY(8px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-.ai{
-  align-self:flex-start;
-  background:linear-gradient(135deg,#111b42,#151d3d);
-  border:1px solid rgba(94,117,255,.28);
-}
-
-.user{
-  align-self:flex-end;
-  background:linear-gradient(135deg,#8147ff,#536fff);
-  box-shadow:0 10px 30px rgba(101,74,255,.22);
+  gap:15px;
+  padding:5px 2px 18px;
 }
 
 .ai-wrap{
@@ -161,39 +146,69 @@ body:before{
   align-items:center;
   justify-content:center;
   font-weight:900;
-  background:linear-gradient(135deg,#853cff,#0b9cff);
-  box-shadow:0 0 18px rgba(96,75,255,.35);
+  background:linear-gradient(135deg,#923eff,#198dff);
+  box-shadow:0 0 18px rgba(100,70,255,.35);
+}
+
+.message{
+  max-width:78%;
+  padding:15px 18px;
+  border-radius:20px;
+  font-size:16px;
+  line-height:1.55;
+  animation:appear .25s ease;
+}
+
+.ai{
+  background:linear-gradient(135deg,#111b40,#151d3d);
+  border:1px solid rgba(89,115,255,.28);
+}
+
+.user{
+  align-self:flex-end;
+  background:linear-gradient(135deg,#8147ff,#536fff);
+  box-shadow:0 10px 30px rgba(101,74,255,.22);
 }
 
 .time{
-  color:#7d86ae;
-  font-size:12px;
+  color:#747ea7;
+  font-size:11px;
   margin-top:5px;
-  margin-left:52px;
+  margin-left:50px;
 }
 
-/* WEB SEARCH */
+@keyframes appear{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* SEARCH */
 
 .searching{
-  align-self:flex-start;
   width:min(78%,600px);
   padding:17px 20px;
   border-radius:20px;
-  border:1px solid rgba(125,83,255,.45);
-  background:linear-gradient(135deg,#101b48,#101735);
+  border:1px solid rgba(145,83,255,.45);
+  background:linear-gradient(135deg,#111b47,#111735);
   animation:appear .25s ease;
 }
 
 .search-title{
-  color:#b985ff;
+  color:#bc8aff;
   font-weight:bold;
   font-size:16px;
 }
 
 .search-sub{
-  color:#8e99c5;
+  color:#8995c2;
+  font-size:13px;
   margin-top:5px;
-  font-size:14px;
 }
 
 .dots{
@@ -206,126 +221,274 @@ body:before{
   width:8px;
   height:8px;
   border-radius:50%;
-  background:#9c61ff;
+  background:#9e63ff;
   animation:bounce 1s infinite;
 }
 
-.dots i:nth-child(2){animation-delay:.15s}
-.dots i:nth-child(3){animation-delay:.3s}
+.dots i:nth-child(2){
+  animation-delay:.15s;
+}
+
+.dots i:nth-child(3){
+  animation-delay:.3s;
+}
 
 @keyframes bounce{
-  0%,100%{transform:translateY(0);opacity:.4}
-  50%{transform:translateY(-5px);opacity:1}
+  0%,100%{
+    transform:translateY(0);
+    opacity:.35;
+  }
+  50%{
+    transform:translateY(-5px);
+    opacity:1;
+  }
 }
 
 /* COMPOSER */
 
 .composer{
   display:flex;
-  gap:10px;
   align-items:center;
+  gap:8px;
   border:1px solid rgba(113,95,255,.55);
-  border-radius:28px;
-  padding:7px 8px 7px 17px;
-  background:rgba(7,12,30,.85);
+  border-radius:30px;
+  padding:7px 8px 7px 14px;
+  background:rgba(5,10,28,.9);
+}
+
+.sparkle{
+  width:36px;
+  height:36px;
+  flex:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#c080ff;
+  font-size:22px;
+  text-shadow:0 0 15px #9d55ff;
 }
 
 .composer textarea{
   flex:1;
+  min-height:42px;
+  max-height:120px;
   resize:none;
+  outline:none;
   border:0;
-  outline:0;
   background:transparent;
   color:white;
   font-size:16px;
-  font-family:inherit;
-  min-height:42px;
   padding:10px 0;
 }
 
 .composer textarea::placeholder{
-  color:#7780aa;
+  color:#7781aa;
 }
 
 .send{
+  flex:none;
   width:52px;
   height:52px;
   border:0;
   border-radius:50%;
-  cursor:pointer;
   color:white;
   font-size:23px;
-  background:linear-gradient(135deg,#9b4dff,#506cff);
+  cursor:pointer;
+  background:linear-gradient(135deg,#9c4dff,#526fff);
   box-shadow:0 0 25px rgba(121,71,255,.45);
 }
 
-.send:active{
-  transform:scale(.94);
+/* OTHER PAGES */
+
+.section-card{
+  min-height:650px;
+  padding:24px;
+  border-radius:28px;
+  border:1px solid rgba(92,111,255,.38);
+  background:rgba(9,16,39,.84);
+  box-shadow:0 25px 80px rgba(0,0,0,.3);
+}
+
+.section-title{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  margin-bottom:25px;
+}
+
+.section-icon{
+  width:52px;
+  height:52px;
+  border-radius:17px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+}
+
+.agenda-icon{
+  color:#66a0ff;
+  background:rgba(69,116,255,.14);
+}
+
+.tasks-icon{
+  color:#28dfc3;
+  background:rgba(35,220,190,.12);
+}
+
+.goals-icon{
+  color:#ffc94f;
+  background:rgba(255,194,63,.12);
+}
+
+.section-title h2{
+  font-size:23px;
+}
+
+.section-title p{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:4px;
+}
+
+.empty{
+  text-align:center;
+  padding:80px 20px;
+  color:#7e89b3;
+}
+
+.empty-icon{
+  font-size:48px;
+  margin-bottom:15px;
+  opacity:.8;
+}
+
+.item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:16px;
+  margin-bottom:11px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#111b3d,#101832);
+  border:1px solid rgba(91,108,220,.2);
+}
+
+.item-icon{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:none;
+}
+
+.item-text{
+  flex:1;
+}
+
+.item-text strong{
+  display:block;
+  font-size:15px;
+}
+
+.item-text small{
+  display:block;
+  margin-top:5px;
+  color:#8993b8;
+}
+
+.priority{
+  font-size:11px;
+  padding:5px 9px;
+  border-radius:20px;
+  background:rgba(155,92,255,.14);
+  color:#bd91ff;
 }
 
 /* NAV */
 
 .nav{
   position:fixed;
-  z-index:20;
+  z-index:50;
+  bottom:9px;
   left:50%;
-  bottom:12px;
   transform:translateX(-50%);
-  width:calc(100% - 24px);
+  width:calc(100% - 18px);
   max-width:1000px;
-  padding:10px;
-  border-radius:28px;
-  border:1px solid rgba(73,105,255,.42);
-  background:rgba(6,12,29,.9);
-  backdrop-filter:blur(22px);
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  box-shadow:0 15px 50px rgba(0,0,0,.45);
+  padding:9px;
+  border-radius:28px;
+  border:1px solid rgba(73,105,255,.42);
+  background:rgba(5,11,28,.92);
+  backdrop-filter:blur(22px);
+  box-shadow:0 15px 50px rgba(0,0,0,.5);
 }
 
 .nav button{
   border:0;
   background:transparent;
-  color:#8993bb;
-  cursor:pointer;
-  padding:9px 3px;
+  color:#7f89b2;
   border-radius:20px;
+  padding:9px 3px;
+  cursor:pointer;
   display:flex;
   flex-direction:column;
   align-items:center;
   gap:5px;
-  font-size:12px;
+  font-size:11px;
+  transition:.2s;
 }
 
 .nav button.active{
   color:white;
-  background:rgba(110,72,255,.14);
+  background:rgba(115,72,255,.14);
 }
 
-.icon{
-  width:32px;
-  height:32px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
+.nav svg{
+  width:25px;
+  height:25px;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:1.8;
 }
 
-.nav button:nth-child(1).active .icon{color:#a875ff}
-.nav button:nth-child(2).active .icon{color:#5795ff}
-.nav button:nth-child(3).active .icon{color:#28e1c3}
-.nav button:nth-child(4).active .icon{color:#ffc84e}
-.nav button:nth-child(5).active .icon{color:#d47cff}
+.nav button:nth-child(1).active{
+  color:#b47cff;
+}
 
-/* RESPONSIVE */
+.nav button:nth-child(2).active{
+  color:#6198ff;
+}
+
+.nav button:nth-child(3).active{
+  color:#27dfc3;
+}
+
+.nav button:nth-child(4).active{
+  color:#ffc94f;
+}
+
+.nav button:nth-child(5).active{
+  color:#d57cff;
+}
+
+/* MOBILE */
 
 @media(max-width:600px){
+
   .app{
-    padding:12px 12px 105px;
+    padding:12px 10px 105px;
   }
 
   .brand h1{
-    font-size:28px;
+    font-size:27px;
+  }
+
+  .brand p{
+    font-size:13px;
   }
 
   .logo{
@@ -333,14 +496,16 @@ body:before{
     height:52px;
   }
 
-  .chat-card{
-    min-height:650px;
-    padding:15px;
+  .chat-card,
+  .section-card{
+    min-height:680px;
     border-radius:25px;
+    padding:15px;
   }
 
   .messages{
-    min-height:530px;
+    min-height:555px;
+    max-height:calc(100vh - 300px);
   }
 
   .message{
@@ -352,13 +517,12 @@ body:before{
     width:88%;
   }
 
-  .nav{
-    bottom:7px;
-    width:calc(100% - 14px);
+  .section-card{
+    padding:20px 15px;
   }
 
-  .nav button{
-    font-size:11px;
+  .empty{
+    padding:70px 10px;
   }
 }
 </style>
@@ -368,162 +532,453 @@ body:before{
 
 <div class="app">
 
-  <header class="header">
-    <div class="brand">
-      <div class="logo">LP</div>
-      <div>
-        <h1>LifePilote</h1>
-        <p>Seu copiloto pessoal</p>
-      </div>
+<header class="header">
+
+  <div class="brand">
+    <div class="logo">LP</div>
+
+    <div>
+      <h1>LifePilote</h1>
+      <p>Seu copiloto pessoal</p>
     </div>
+  </div>
 
-    <div class="online">
-      <span></span>
-      Online
-    </div>
-  </header>
+  <div class="online">
+    <i></i>
+    Online
+  </div>
 
-  <main class="chat-card">
+</header>
 
-    <div class="messages" id="messages">
 
-      <div class="ai-wrap">
-        <div class="mini-logo">LP</div>
-        <div>
-          <div class="message ai">
-            Olá! Eu sou o LifePilote. 🧠<br><br>
-            Agora estou conectado ao cérebro online.
-            Posso conversar com você e, quando apropriado,
-            criar tarefas, concluir tarefas, criar compromissos
-            e objetivos.
-          </div>
-          <div class="time">Agora</div>
-        </div>
-      </div>
+<!-- INÍCIO -->
 
-    </div>
+<section id="home" class="page active">
 
-    <div class="composer">
-      <textarea
-        id="input"
-        placeholder="Digite sua mensagem..."
-        rows="1"
-      ></textarea>
+<div class="chat-card">
 
-      <button class="send" onclick="sendMessage()">➤</button>
-    </div>
+<div class="messages" id="messages">
 
-  </main>
+<div class="ai-wrap">
+
+<div class="mini-logo">LP</div>
+
+<div>
+
+<div class="message ai">
+
+Olá! Eu sou o LifePilote. 🧠<br><br>
+
+Estou conectado ao meu cérebro online.
+Posso conversar com você e ajudar a organizar
+tarefas, compromissos e objetivos.
 
 </div>
 
+<div class="time">Agora</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="composer">
+
+<div class="sparkle">✦</div>
+
+<textarea
+id="input"
+placeholder="Digite sua mensagem..."
+rows="1"></textarea>
+
+<button class="send" onclick="sendMessage()">➤</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- AGENDA -->
+
+<section id="agenda" class="page">
+
+<div class="section-card">
+
+<div class="section-title">
+
+<div class="section-icon agenda-icon">▣</div>
+
+<div>
+<h2>Agenda</h2>
+<p>Seus compromissos e eventos</p>
+</div>
+
+</div>
+
+<div id="eventsList">
+
+<div class="empty">
+<div class="empty-icon">📅</div>
+Nenhum compromisso criado ainda.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- TAREFAS -->
+
+<section id="tasks" class="page">
+
+<div class="section-card">
+
+<div class="section-title">
+
+<div class="section-icon tasks-icon">✓</div>
+
+<div>
+<h2>Tarefas</h2>
+<p>Organize o que precisa ser feito</p>
+</div>
+
+</div>
+
+<div id="tasksList">
+
+<div class="empty">
+<div class="empty-icon">✓</div>
+Nenhuma tarefa criada ainda.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- OBJETIVOS -->
+
+<section id="goals" class="page">
+
+<div class="section-card">
+
+<div class="section-title">
+
+<div class="section-icon goals-icon">◎</div>
+
+<div>
+<h2>Objetivos</h2>
+<p>Acompanhe seus grandes planos</p>
+</div>
+
+</div>
+
+<div id="goalsList">
+
+<div class="empty">
+<div class="empty-icon">🎯</div>
+Nenhum objetivo criado ainda.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- IA -->
+
+<section id="ia" class="page">
+
+<div class="section-card">
+
+<div class="section-title">
+
+<div class="section-icon" style="color:#d57cff;background:rgba(183,83,255,.13)">
+✦
+</div>
+
+<div>
+<h2>LifePilote IA</h2>
+<p>Seu cérebro pessoal online</p>
+</div>
+
+</div>
+
+<div class="item">
+
+<div class="item-icon" style="background:rgba(160,80,255,.12);color:#c17cff">
+✦
+</div>
+
+<div class="item-text">
+<strong>IA online</strong>
+<small>Conectada e pronta para ajudar</small>
+</div>
+
+</div>
+
+<div class="item">
+
+<div class="item-icon" style="background:rgba(39,223,195,.12);color:#27dfc3">
+✓
+</div>
+
+<div class="item-text">
+<strong>Ferramentas inteligentes</strong>
+<small>Tarefas, agenda e objetivos</small>
+</div>
+
+</div>
+
+<div class="item">
+
+<div class="item-icon" style="background:rgba(83,124,255,.12);color:#6393ff">
+⌁
+</div>
+
+<div class="item-text">
+<strong>Busca online</strong>
+<small>Preparado para consultar informações atuais</small>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+
+<!-- NAVEGAÇÃO -->
+
 <nav class="nav">
 
-  <button class="active" onclick="setActive(this)">
-    <div class="icon">⌂</div>
-    <span>Início</span>
-  </button>
+<button class="active" onclick="openPage('home',this)">
 
-  <button onclick="setActive(this)">
-    <div class="icon">▣</div>
-    <span>Agenda</span>
-  </button>
+<svg viewBox="0 0 24 24">
+<path d="M3 10.5 12 3l9 7.5"/>
+<path d="M5 9.5V21h14V9.5"/>
+<path d="M9 21v-6h6v6"/>
+</svg>
 
-  <button onclick="setActive(this)">
-    <div class="icon">✓</div>
-    <span>Tarefas</span>
-  </button>
+<span>Início</span>
 
-  <button onclick="setActive(this)">
-    <div class="icon">◎</div>
-    <span>Objetivos</span>
-  </button>
+</button>
 
-  <button onclick="setActive(this)">
-    <div class="icon">✦</div>
-    <span>IA</span>
-  </button>
+
+<button onclick="openPage('agenda',this);loadState()">
+
+<svg viewBox="0 0 24 24">
+<rect x="3" y="5" width="18" height="16" rx="3"/>
+<path d="M7 3v4M17 3v4M3 10h18"/>
+<path d="M8 14h2M14 14h2M8 18h2"/>
+</svg>
+
+<span>Agenda</span>
+
+</button>
+
+
+<button onclick="openPage('tasks',this);loadState()">
+
+<svg viewBox="0 0 24 24">
+<rect x="3" y="3" width="18" height="18" rx="5"/>
+<path d="m7 12 3 3 7-7"/>
+</svg>
+
+<span>Tarefas</span>
+
+</button>
+
+
+<button onclick="openPage('goals',this);loadState()">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="8"/>
+<circle cx="12" cy="12" r="4"/>
+<path d="m16 8 4-4"/>
+<path d="M20 4h-4M20 4v4"/>
+</svg>
+
+<span>Objetivos</span>
+
+</button>
+
+
+<button onclick="openPage('ia',this)">
+
+<svg viewBox="0 0 24 24">
+<path d="m12 2 1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5L12 2Z"/>
+<path d="m19 16 .7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7L19 16Z"/>
+</svg>
+
+<span>IA</span>
+
+</button>
 
 </nav>
 
+
 <script>
 
-const input = document.getElementById("input");
-const messages = document.getElementById("messages");
+const input=document.getElementById("input");
+const messages=document.getElementById("messages");
 
 input.addEventListener("keydown",function(e){
+
   if(e.key==="Enter" && !e.shiftKey){
+
     e.preventDefault();
     sendMessage();
+
   }
+
 });
 
+
 function timeNow(){
+
   return new Date().toLocaleTimeString("pt-BR",{
     hour:"2-digit",
     minute:"2-digit"
   });
+
 }
+
+
+function scrollBottom(){
+
+  setTimeout(()=>{
+    messages.scrollTop=messages.scrollHeight;
+  },50);
+
+}
+
+
+function escapeHtml(text){
+
+  const div=document.createElement("div");
+
+  div.textContent=text;
+
+  return div.innerHTML;
+
+}
+
+
+function formatText(text){
+
+  return escapeHtml(text)
+  .replace(/\n/g,"<br>")
+  .replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>");
+
+}
+
 
 function addUserMessage(text){
 
   const div=document.createElement("div");
+
   div.className="message user";
+
   div.innerHTML=
-    escapeHtml(text)+
+    formatText(text)+
     `<div style="font-size:11px;text-align:right;opacity:.65;margin-top:4px">
       ${timeNow()} ✓✓
     </div>`;
 
   messages.appendChild(div);
+
   scrollBottom();
+
 }
+
 
 function addAIMessage(text){
 
   const wrap=document.createElement("div");
+
   wrap.className="ai-wrap";
 
   wrap.innerHTML=`
+
     <div class="mini-logo">LP</div>
+
     <div>
-      <div class="message ai">${formatText(text)}</div>
-      <div class="time">${timeNow()}</div>
+
+      <div class="message ai">
+        ${formatText(text)}
+      </div>
+
+      <div class="time">
+        ${timeNow()}
+      </div>
+
     </div>
+
   `;
 
   messages.appendChild(wrap);
+
   scrollBottom();
+
 }
+
 
 function showSearching(){
 
   const div=document.createElement("div");
+
   div.className="searching";
+
   div.id="searching";
 
   div.innerHTML=`
-    <div class="search-title">🌐 Buscando na web...</div>
+
+    <div class="search-title">
+      🌐 Buscando na web...
+    </div>
+
     <div class="search-sub">
       Vou verificar as informações mais recentes para te ajudar.
     </div>
+
     <div class="dots">
-      <i></i><i></i><i></i>
+      <i></i>
+      <i></i>
+      <i></i>
     </div>
+
   `;
 
   messages.appendChild(div);
+
   scrollBottom();
+
 }
+
 
 function removeSearching(){
 
-  const search=document.getElementById("searching");
+  const element=document.getElementById("searching");
 
-  if(search){
-    search.remove();
+  if(element){
+    element.remove();
   }
+
 }
+
 
 async function sendMessage(){
 
@@ -532,26 +987,25 @@ async function sendMessage(){
   if(!text) return;
 
   addUserMessage(text);
-  input.value="";
 
-  /*
-    Por enquanto mostramos a animação enquanto
-    o servidor responde.
-    Depois vamos conectar isso à busca REAL na web.
-  */
+  input.value="";
 
   showSearching();
 
   try{
 
     const response=await fetch("/api/chat",{
+
       method:"POST",
+
       headers:{
         "Content-Type":"application/json"
       },
+
       body:JSON.stringify({
         message:text
       })
+
     });
 
     const data=await response.json();
@@ -559,10 +1013,18 @@ async function sendMessage(){
     removeSearching();
 
     if(data.reply){
+
       addAIMessage(data.reply);
+
     }else{
-      addAIMessage("Desculpe, não consegui responder agora.");
+
+      addAIMessage(
+        "Não consegui obter uma resposta agora."
+      );
+
     }
+
+    loadState();
 
   }catch(error){
 
@@ -573,36 +1035,190 @@ async function sendMessage(){
     );
 
   }
+
 }
 
-function setActive(button){
+
+function openPage(page,button){
+
+  document.querySelectorAll(".page")
+    .forEach(p=>p.classList.remove("active"));
+
+  document.getElementById(page)
+    .classList.add("active");
 
   document.querySelectorAll(".nav button")
     .forEach(b=>b.classList.remove("active"));
 
   button.classList.add("active");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
 }
 
-function scrollBottom(){
 
-  setTimeout(()=>{
-    messages.scrollTop=messages.scrollHeight;
-  },50);
+async function loadState(){
+
+  try{
+
+    const response=await fetch("/api/state");
+
+    const state=await response.json();
+
+    renderEvents(state.events || []);
+    renderTasks(state.tasks || []);
+    renderGoals(state.goals || []);
+
+  }catch(error){
+
+    console.log("Não foi possível carregar o estado.");
+
+  }
+
 }
 
-function escapeHtml(text){
 
-  const div=document.createElement("div");
-  div.textContent=text;
-  return div.innerHTML;
+function renderEvents(events){
+
+  const container=document.getElementById("eventsList");
+
+  if(!events.length){
+
+    container.innerHTML=`
+
+      <div class="empty">
+        <div class="empty-icon">📅</div>
+        Nenhum compromisso criado ainda.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  container.innerHTML=events.map(event=>`
+
+    <div class="item">
+
+      <div class="item-icon"
+           style="background:rgba(83,124,255,.12);color:#6393ff">
+        📅
+      </div>
+
+      <div class="item-text">
+
+        <strong>${escapeHtml(event.title)}</strong>
+
+        <small>
+          ${escapeHtml(event.datetime || "")}
+        </small>
+
+      </div>
+
+    </div>
+
+  `).join("");
+
 }
 
-function formatText(text){
 
-  return escapeHtml(text)
-    .replace(/\n/g,"<br>")
-    .replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>");
+function renderTasks(tasks){
+
+  const container=document.getElementById("tasksList");
+
+  if(!tasks.length){
+
+    container.innerHTML=`
+
+      <div class="empty">
+        <div class="empty-icon">✓</div>
+        Nenhuma tarefa criada ainda.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  container.innerHTML=tasks.map(task=>`
+
+    <div class="item">
+
+      <div class="item-icon"
+           style="background:rgba(39,223,195,.12);color:#27dfc3">
+        ${task.done ? "✓" : "○"}
+      </div>
+
+      <div class="item-text">
+
+        <strong>${escapeHtml(task.text)}</strong>
+
+        <small>
+          ${task.done ? "Concluída" : "Pendente"}
+        </small>
+
+      </div>
+
+      <div class="priority">
+        ${escapeHtml(task.priority || "media")}
+      </div>
+
+    </div>
+
+  `).join("");
+
 }
+
+
+function renderGoals(goals){
+
+  const container=document.getElementById("goalsList");
+
+  if(!goals.length){
+
+    container.innerHTML=`
+
+      <div class="empty">
+        <div class="empty-icon">🎯</div>
+        Nenhum objetivo criado ainda.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  container.innerHTML=goals.map(goal=>`
+
+    <div class="item">
+
+      <div class="item-icon"
+           style="background:rgba(255,201,79,.12);color:#ffc94f">
+        🎯
+      </div>
+
+      <div class="item-text">
+
+        <strong>${escapeHtml(goal.text)}</strong>
+
+        <small>Objetivo ativo</small>
+
+      </div>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+loadState();
 
 </script>
 
