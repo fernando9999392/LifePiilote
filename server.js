@@ -112,7 +112,6 @@ const tools = [
   }
 ];
 
-
 function callTool(name, args) {
 
   if (name === "create_task") {
@@ -128,7 +127,6 @@ function callTool(name, args) {
 
     return task;
   }
-
 
   if (name === "complete_task") {
 
@@ -148,7 +146,6 @@ function callTool(name, args) {
     };
   }
 
-
   if (name === "create_event") {
 
     const event = {
@@ -162,7 +159,6 @@ function callTool(name, args) {
     return event;
   }
 
-
   if (name === "create_goal") {
 
     const goal = {
@@ -175,21 +171,21 @@ function callTool(name, args) {
     return goal;
   }
 
-
   if (name === "list_tasks") {
     return state.tasks;
   }
-
 
   if (name === "list_events") {
     return state.events;
   }
 
-
   if (name === "list_goals") {
     return state.goals;
   }
 
+  return {
+    error: "Ferramenta não encontrada"
+  };
 }
 
 
@@ -205,7 +201,6 @@ app.post("/api/chat", async (req, res) => {
       });
     }
 
-
     let response = await client.responses.create({
 
       model: "gpt-5.6-luna",
@@ -217,33 +212,26 @@ Responda sempre em português do Brasil.
 
 Seja natural, útil, direto e inteligente.
 
-Você pode:
-- conversar normalmente;
-- criar tarefas;
-- concluir tarefas;
-- criar compromissos;
-- criar objetivos;
-- consultar tarefas;
-- consultar compromissos;
-- consultar objetivos.
+Você pode conversar, pesquisar na web,
+criar tarefas, concluir tarefas,
+criar compromissos e criar objetivos.
 
 Quando a pergunta depender de informações atuais,
 recentes, notícias, preços, clima, acontecimentos,
 pessoas, empresas, produtos ou qualquer informação
 que possa ter mudado, USE A BUSCA NA WEB.
 
-Quando usar a busca na web:
-- analise as fontes encontradas;
-- responda com base nas informações encontradas;
-- deixe claro quando uma informação é atual;
+Quando usar a busca:
+- analise as fontes;
+- responda usando as informações encontradas;
 - não invente informações;
-- se as fontes forem conflitantes, explique.
+- se houver conflito entre fontes, explique;
+- priorize fontes confiáveis.
 
-Nunca diga que pesquisou na internet se você não tiver
-realmente usado a ferramenta de busca.
+Nunca diga que pesquisou se a busca não foi realmente usada.
 
-Nunca diga que criou, concluiu ou alterou alguma coisa
-sem que a ferramenta correspondente confirme.
+Nunca diga que criou ou alterou algo sem confirmação
+da ferramenta correspondente.
 
 Quando faltar informação essencial para criar um evento,
 pergunte ao usuário.
@@ -254,15 +242,11 @@ Você é o cérebro online do LifePilote.
       input,
 
       tools: [
-
         ...tools,
-
         {
           type: "web_search"
         }
-
       ]
-
     });
 
 
@@ -275,7 +259,6 @@ Você é o cérebro online do LifePilote.
       const calls = response.output.filter(
         x => x.type === "function_call"
       );
-
 
       const outputs = calls.map(call => ({
 
@@ -292,7 +275,6 @@ Você é o cérebro online do LifePilote.
 
       }));
 
-
       response = await client.responses.create({
 
         model: "gpt-5.6-luna",
@@ -302,23 +284,56 @@ Você é o cérebro online do LifePilote.
         input: outputs,
 
         tools: [
-
           ...tools,
-
           {
             type: "web_search"
           }
-
         ]
 
       });
+    }
 
+
+    const usedWebSearch = response.output.some(
+      x => x.type === "web_search_call"
+    );
+
+
+    const sources = [];
+
+    for (const item of response.output) {
+
+      if (
+        item.type === "web_search_call" &&
+        item.action &&
+        Array.isArray(item.action.sources)
+      ) {
+
+        for (const source of item.action.sources) {
+
+          if (
+            source.url &&
+            !sources.some(s => s.url === source.url)
+          ) {
+
+            sources.push({
+              title: source.title || source.url,
+              url: source.url
+            });
+
+          }
+        }
+      }
     }
 
 
     res.json({
 
       reply: response.output_text,
+
+      usedWebSearch,
+
+      sources,
 
       state
 
@@ -327,7 +342,10 @@ Você é o cérebro online do LifePilote.
 
   } catch (error) {
 
-    console.error("ERRO DO LIFEPILOTE:", error);
+    console.error(
+      "ERRO DO LIFEPILOTE:",
+      error
+    );
 
     res.status(500).json({
 
