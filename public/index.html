@@ -12,94 +12,71 @@
   padding:0;
 }
 
-:root{
-  --bg:#050817;
-  --card:#0d1530;
-  --card2:#121b3b;
-  --text:#f5f6ff;
-  --muted:#8d97bd;
-  --purple:#9b5cff;
-  --blue:#557cff;
-  --cyan:#27dfc3;
-  --gold:#ffc94f;
-}
-
 body{
-  min-height:100vh;
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--text);
+  font-family:Arial,sans-serif;
   background:
-    radial-gradient(circle at 15% 0%,#32136b 0%,transparent 32%),
-    radial-gradient(circle at 90% 15%,#112e68 0%,transparent 32%),
-    var(--bg);
-}
-
-button,textarea{
-  font-family:inherit;
+    radial-gradient(circle at top,#25145c 0%,#100b29 38%,#070512 100%);
+  color:white;
+  min-height:100vh;
 }
 
 .app{
-  width:100%;
-  max-width:1100px;
+  max-width:600px;
   margin:auto;
-  padding:16px 16px 120px;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
 }
 
-/* HEADER */
-
-.header{
+header{
+  padding:22px 20px 12px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:5px 4px 20px;
 }
 
-.brand{
+.logo-area{
   display:flex;
   align-items:center;
-  gap:13px;
+  gap:12px;
 }
 
 .logo{
-  width:55px;
-  height:55px;
-  border-radius:18px;
+  width:48px;
+  height:48px;
+  border-radius:15px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:21px;
-  font-weight:900;
-  background:linear-gradient(135deg,#a04cff,#347cff,#18d9c5);
-  box-shadow:0 0 30px rgba(119,65,255,.5);
+  font-weight:bold;
+  font-size:20px;
+  background:linear-gradient(135deg,#9b5cff,#4c8dff);
+  box-shadow:0 0 25px #754cff66;
 }
 
-.brand h1{
-  font-size:29px;
+.brand{
+  font-size:19px;
+  font-weight:bold;
 }
 
-.brand p{
-  color:var(--muted);
-  margin-top:4px;
-  font-size:14px;
+.subtitle{
+  font-size:12px;
+  color:#aaa3c8;
+  margin-top:3px;
 }
 
 .online{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  color:#62f4db;
-  font-size:14px;
+  font-size:11px;
+  color:#73e6a5;
+  background:#143b2a;
+  padding:7px 10px;
+  border-radius:20px;
 }
 
-.online i{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#54efd6;
-  box-shadow:0 0 12px #54efd6;
+main{
+  flex:1;
+  padding:10px 18px 110px;
 }
-
-/* PAGES */
 
 .page{
   display:none;
@@ -109,421 +86,193 @@ button,textarea{
   display:block;
 }
 
-/* CHAT */
-
-.chat-card{
-  min-height:670px;
-  border:1px solid rgba(102,102,255,.45);
-  border-radius:28px;
-  padding:18px;
-  background:rgba(9,16,39,.84);
-  backdrop-filter:blur(20px);
-  box-shadow:0 25px 80px rgba(0,0,0,.35);
+.hero{
+  margin-top:10px;
+  padding:22px;
+  border-radius:25px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.09);
+  backdrop-filter:blur(15px);
 }
 
-.messages{
-  min-height:535px;
-  max-height:calc(100vh - 310px);
-  overflow-y:auto;
+.hero h1{
+  font-size:25px;
+  margin-bottom:8px;
+}
+
+.hero p{
+  color:#aaa3c8;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.card{
+  margin-top:15px;
+  padding:18px;
+  border-radius:20px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.card-title{
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+.chat{
   display:flex;
   flex-direction:column;
-  gap:15px;
-  padding:5px 2px 18px;
-}
-
-.ai-wrap{
-  display:flex;
-  gap:10px;
-  align-items:flex-start;
-}
-
-.mini-logo{
-  flex:none;
-  width:42px;
-  height:42px;
-  border-radius:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:900;
-  background:linear-gradient(135deg,#923eff,#198dff);
-  box-shadow:0 0 18px rgba(100,70,255,.35);
+  gap:12px;
+  margin-top:15px;
 }
 
 .message{
-  max-width:78%;
-  padding:15px 18px;
-  border-radius:20px;
-  font-size:16px;
-  line-height:1.55;
-  animation:appear .25s ease;
-}
-
-.ai{
-  background:linear-gradient(135deg,#111b40,#151d3d);
-  border:1px solid rgba(89,115,255,.28);
+  max-width:88%;
+  padding:13px 15px;
+  border-radius:18px;
+  font-size:14px;
+  line-height:1.5;
+  white-space:pre-wrap;
 }
 
 .user{
   align-self:flex-end;
-  background:linear-gradient(135deg,#8147ff,#536fff);
-  box-shadow:0 10px 30px rgba(101,74,255,.22);
+  background:linear-gradient(135deg,#744cff,#5141bd);
 }
 
-.time{
-  color:#747ea7;
-  font-size:11px;
-  margin-top:5px;
-  margin-left:50px;
+.bot{
+  align-self:flex-start;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.08);
 }
-
-@keyframes appear{
-  from{
-    opacity:0;
-    transform:translateY(8px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-/* SEARCH */
 
 .searching{
-  width:min(78%,600px);
-  padding:17px 20px;
-  border-radius:20px;
-  border:1px solid rgba(145,83,255,.45);
-  background:linear-gradient(135deg,#111b47,#111735);
-  animation:appear .25s ease;
-}
-
-.search-title{
-  color:#bc8aff;
-  font-weight:bold;
-  font-size:16px;
-}
-
-.search-sub{
-  color:#8995c2;
+  align-self:flex-start;
+  color:#b9a9ff;
   font-size:13px;
-  margin-top:5px;
+  animation:pulse 1.2s infinite;
 }
 
-.dots{
-  display:flex;
-  gap:7px;
-  margin-top:13px;
+@keyframes pulse{
+  50%{opacity:.4}
 }
-
-.dots i{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#9e63ff;
-  animation:bounce 1s infinite;
-}
-
-.dots i:nth-child(2){
-  animation-delay:.15s;
-}
-
-.dots i:nth-child(3){
-  animation-delay:.3s;
-}
-
-@keyframes bounce{
-  0%,100%{
-    transform:translateY(0);
-    opacity:.35;
-  }
-  50%{
-    transform:translateY(-5px);
-    opacity:1;
-  }
-}
-
-/* COMPOSER */
 
 .composer{
+  position:fixed;
+  bottom:70px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(560px,calc(100% - 30px));
   display:flex;
-  align-items:center;
   gap:8px;
-  border:1px solid rgba(113,95,255,.55);
-  border-radius:30px;
-  padding:7px 8px 7px 14px;
-  background:rgba(5,10,28,.9);
+  padding:8px;
+  border-radius:20px;
+  background:rgba(20,14,45,.94);
+  border:1px solid #ffffff16;
+  backdrop-filter:blur(20px);
 }
 
-.sparkle{
-  width:36px;
-  height:36px;
-  flex:none;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#c080ff;
-  font-size:22px;
-  text-shadow:0 0 15px #9d55ff;
-}
-
-.composer textarea{
+.composer input{
   flex:1;
-  min-height:42px;
-  max-height:120px;
-  resize:none;
-  outline:none;
   border:0;
+  outline:0;
   background:transparent;
   color:white;
-  font-size:16px;
-  padding:10px 0;
+  padding:12px;
+  font-size:14px;
 }
 
-.composer textarea::placeholder{
-  color:#7781aa;
+.composer input::placeholder{
+  color:#77718e;
 }
 
 .send{
-  flex:none;
-  width:52px;
-  height:52px;
+  width:44px;
+  height:44px;
   border:0;
-  border-radius:50%;
-  color:white;
-  font-size:23px;
-  cursor:pointer;
-  background:linear-gradient(135deg,#9c4dff,#526fff);
-  box-shadow:0 0 25px rgba(121,71,255,.45);
-}
-
-/* OTHER PAGES */
-
-.section-card{
-  min-height:650px;
-  padding:24px;
-  border-radius:28px;
-  border:1px solid rgba(92,111,255,.38);
-  background:rgba(9,16,39,.84);
-  box-shadow:0 25px 80px rgba(0,0,0,.3);
-}
-
-.section-title{
-  display:flex;
-  align-items:center;
-  gap:13px;
-  margin-bottom:25px;
-}
-
-.section-icon{
-  width:52px;
-  height:52px;
-  border-radius:17px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:24px;
-}
-
-.agenda-icon{
-  color:#66a0ff;
-  background:rgba(69,116,255,.14);
-}
-
-.tasks-icon{
-  color:#28dfc3;
-  background:rgba(35,220,190,.12);
-}
-
-.goals-icon{
-  color:#ffc94f;
-  background:rgba(255,194,63,.12);
-}
-
-.section-title h2{
-  font-size:23px;
-}
-
-.section-title p{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:4px;
-}
-
-.empty{
-  text-align:center;
-  padding:80px 20px;
-  color:#7e89b3;
-}
-
-.empty-icon{
-  font-size:48px;
-  margin-bottom:15px;
-  opacity:.8;
-}
-
-.item{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:16px;
-  margin-bottom:11px;
-  border-radius:18px;
-  background:linear-gradient(135deg,#111b3d,#101832);
-  border:1px solid rgba(91,108,220,.2);
-}
-
-.item-icon{
-  width:42px;
-  height:42px;
   border-radius:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex:none;
+  color:white;
+  font-size:20px;
+  background:linear-gradient(135deg,#8d55ff,#516eff);
+  cursor:pointer;
 }
-
-.item-text{
-  flex:1;
-}
-
-.item-text strong{
-  display:block;
-  font-size:15px;
-}
-
-.item-text small{
-  display:block;
-  margin-top:5px;
-  color:#8993b8;
-}
-
-.priority{
-  font-size:11px;
-  padding:5px 9px;
-  border-radius:20px;
-  background:rgba(155,92,255,.14);
-  color:#bd91ff;
-}
-
-/* NAV */
 
 .nav{
   position:fixed;
-  z-index:50;
-  bottom:9px;
+  bottom:0;
   left:50%;
   transform:translateX(-50%);
-  width:calc(100% - 18px);
-  max-width:1000px;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  padding:9px;
-  border-radius:28px;
-  border:1px solid rgba(73,105,255,.42);
-  background:rgba(5,11,28,.92);
-  backdrop-filter:blur(22px);
-  box-shadow:0 15px 50px rgba(0,0,0,.5);
+  width:min(600px,100%);
+  height:65px;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  background:rgba(10,7,24,.96);
+  border-top:1px solid #ffffff12;
 }
 
 .nav button{
   border:0;
-  background:transparent;
-  color:#7f89b2;
-  border-radius:20px;
-  padding:9px 3px;
-  cursor:pointer;
+  background:none;
+  color:#77718e;
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:5px;
-  font-size:11px;
-  transition:.2s;
+  gap:4px;
+  font-size:10px;
+  cursor:pointer;
 }
 
 .nav button.active{
-  color:white;
-  background:rgba(115,72,255,.14);
+  color:#a77aff;
 }
 
-.nav svg{
-  width:25px;
-  height:25px;
-  stroke:currentColor;
-  fill:none;
-  stroke-width:1.8;
+.icon{
+  font-size:20px;
 }
 
-.nav button:nth-child(1).active{
-  color:#b47cff;
+.item{
+  padding:12px;
+  margin-bottom:8px;
+  border-radius:14px;
+  background:#ffffff08;
 }
 
-.nav button:nth-child(2).active{
-  color:#6198ff;
+.empty{
+  color:#77718e;
+  font-size:13px;
 }
 
-.nav button:nth-child(3).active{
-  color:#27dfc3;
+.sources{
+  margin-top:12px;
+  padding-top:10px;
+  border-top:1px solid #ffffff12;
 }
 
-.nav button:nth-child(4).active{
-  color:#ffc94f;
+.sources-title{
+  font-size:11px;
+  color:#9f96ba;
+  margin-bottom:8px;
 }
 
-.nav button:nth-child(5).active{
-  color:#d57cff;
+.source{
+  display:block;
+  text-decoration:none;
+  color:#b695ff;
+  font-size:12px;
+  padding:7px 0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
-/* MOBILE */
+.source:hover{
+  text-decoration:underline;
+}
 
-@media(max-width:600px){
-
-  .app{
-    padding:12px 10px 105px;
-  }
-
-  .brand h1{
-    font-size:27px;
-  }
-
-  .brand p{
-    font-size:13px;
-  }
-
-  .logo{
-    width:52px;
-    height:52px;
-  }
-
-  .chat-card,
-  .section-card{
-    min-height:680px;
-    border-radius:25px;
-    padding:15px;
-  }
-
-  .messages{
-    min-height:555px;
-    max-height:calc(100vh - 300px);
-  }
-
-  .message{
-    max-width:88%;
-    font-size:16px;
-  }
-
-  .searching{
-    width:88%;
-  }
-
-  .section-card{
-    padding:20px 15px;
-  }
-
-  .empty{
-    padding:70px 10px;
-  }
+h2{
+  font-size:21px;
+  margin:8px 0 15px;
 }
 </style>
 </head>
@@ -532,530 +281,448 @@ button,textarea{
 
 <div class="app">
 
-<header class="header">
-
-  <div class="brand">
+<header>
+  <div class="logo-area">
     <div class="logo">LP</div>
-
     <div>
-      <h1>LifePilote</h1>
-      <p>Seu copiloto pessoal</p>
+      <div class="brand">LifePilote</div>
+      <div class="subtitle">Seu copiloto pessoal</div>
     </div>
   </div>
 
-  <div class="online">
-    <i></i>
-    Online
-  </div>
-
+  <div class="online">● Online</div>
 </header>
 
 
-<!-- INÍCIO -->
+<main>
 
+<!-- INÍCIO -->
 <section id="home" class="page active">
 
-<div class="chat-card">
+  <div class="hero">
+    <h1>Olá 👋</h1>
+    <p>
+      Estou pronto para ajudar você a organizar sua vida,
+      pesquisar informações e cuidar dos seus objetivos.
+    </p>
+  </div>
 
-<div class="messages" id="messages">
-
-<div class="ai-wrap">
-
-<div class="mini-logo">LP</div>
-
-<div>
-
-<div class="message ai">
-
-Olá! Eu sou o LifePilote. 🧠<br><br>
-
-Estou conectado ao meu cérebro online.
-Posso conversar com você e ajudar a organizar
-tarefas, compromissos e objetivos.
-
-</div>
-
-<div class="time">Agora</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="composer">
-
-<div class="sparkle">✦</div>
-
-<textarea
-id="input"
-placeholder="Digite sua mensagem..."
-rows="1"></textarea>
-
-<button class="send" onclick="sendMessage()">➤</button>
-
-</div>
-
-</div>
+  <div class="card">
+    <div class="card-title">✨ O que posso fazer?</div>
+    <p class="empty">
+      Pesquisar na web, criar tarefas, organizar compromissos,
+      acompanhar objetivos e conversar com você.
+    </p>
+  </div>
 
 </section>
 
 
 <!-- AGENDA -->
-
 <section id="agenda" class="page">
 
-<div class="section-card">
+  <h2>📅 Agenda</h2>
 
-<div class="section-title">
-
-<div class="section-icon agenda-icon">▣</div>
-
-<div>
-<h2>Agenda</h2>
-<p>Seus compromissos e eventos</p>
-</div>
-
-</div>
-
-<div id="eventsList">
-
-<div class="empty">
-<div class="empty-icon">📅</div>
-Nenhum compromisso criado ainda.
-</div>
-
-</div>
-
-</div>
+  <div id="eventsList"></div>
 
 </section>
 
 
 <!-- TAREFAS -->
-
 <section id="tasks" class="page">
 
-<div class="section-card">
+  <h2>✅ Tarefas</h2>
 
-<div class="section-title">
-
-<div class="section-icon tasks-icon">✓</div>
-
-<div>
-<h2>Tarefas</h2>
-<p>Organize o que precisa ser feito</p>
-</div>
-
-</div>
-
-<div id="tasksList">
-
-<div class="empty">
-<div class="empty-icon">✓</div>
-Nenhuma tarefa criada ainda.
-</div>
-
-</div>
-
-</div>
+  <div id="tasksList"></div>
 
 </section>
 
 
 <!-- OBJETIVOS -->
-
 <section id="goals" class="page">
 
-<div class="section-card">
+  <h2>🎯 Objetivos</h2>
 
-<div class="section-title">
-
-<div class="section-icon goals-icon">◎</div>
-
-<div>
-<h2>Objetivos</h2>
-<p>Acompanhe seus grandes planos</p>
-</div>
-
-</div>
-
-<div id="goalsList">
-
-<div class="empty">
-<div class="empty-icon">🎯</div>
-Nenhum objetivo criado ainda.
-</div>
-
-</div>
-
-</div>
+  <div id="goalsList"></div>
 
 </section>
 
 
 <!-- IA -->
-
 <section id="ia" class="page">
 
-<div class="section-card">
+  <h2>🤖 LifePilote IA</h2>
 
-<div class="section-title">
-
-<div class="section-icon" style="color:#d57cff;background:rgba(183,83,255,.13)">
-✦
-</div>
-
-<div>
-<h2>LifePilote IA</h2>
-<p>Seu cérebro pessoal online</p>
-</div>
-
-</div>
-
-<div class="item">
-
-<div class="item-icon" style="background:rgba(160,80,255,.12);color:#c17cff">
-✦
-</div>
-
-<div class="item-text">
-<strong>IA online</strong>
-<small>Conectada e pronta para ajudar</small>
-</div>
-
-</div>
-
-<div class="item">
-
-<div class="item-icon" style="background:rgba(39,223,195,.12);color:#27dfc3">
-✓
-</div>
-
-<div class="item-text">
-<strong>Ferramentas inteligentes</strong>
-<small>Tarefas, agenda e objetivos</small>
-</div>
-
-</div>
-
-<div class="item">
-
-<div class="item-icon" style="background:rgba(83,124,255,.12);color:#6393ff">
-⌁
-</div>
-
-<div class="item-text">
-<strong>Busca online</strong>
-<small>Preparado para consultar informações atuais</small>
-</div>
-
-</div>
-
-</div>
+  <div id="chat" class="chat"></div>
 
 </section>
 
+</main>
+
+
+<div class="composer">
+
+  <input
+    id="message"
+    type="text"
+    placeholder="Fale com o LifePilote..."
+    autocomplete="off"
+  >
+
+  <button
+    class="send"
+    onclick="sendMessage()"
+  >✦</button>
+
 </div>
 
 
-<!-- NAVEGAÇÃO -->
-
 <nav class="nav">
 
-<button class="active" onclick="openPage('home',this)">
+  <button
+    class="active"
+    onclick="showPage('home',this)"
+  >
+    <span class="icon">⌂</span>
+    Início
+  </button>
 
-<svg viewBox="0 0 24 24">
-<path d="M3 10.5 12 3l9 7.5"/>
-<path d="M5 9.5V21h14V9.5"/>
-<path d="M9 21v-6h6v6"/>
-</svg>
+  <button
+    onclick="showPage('agenda',this)"
+  >
+    <span class="icon">▣</span>
+    Agenda
+  </button>
 
-<span>Início</span>
+  <button
+    onclick="showPage('tasks',this)"
+  >
+    <span class="icon">✓</span>
+    Tarefas
+  </button>
 
-</button>
+  <button
+    onclick="showPage('goals',this)"
+  >
+    <span class="icon">◈</span>
+    Objetivos
+  </button>
 
-
-<button onclick="openPage('agenda',this);loadState()">
-
-<svg viewBox="0 0 24 24">
-<rect x="3" y="5" width="18" height="16" rx="3"/>
-<path d="M7 3v4M17 3v4M3 10h18"/>
-<path d="M8 14h2M14 14h2M8 18h2"/>
-</svg>
-
-<span>Agenda</span>
-
-</button>
-
-
-<button onclick="openPage('tasks',this);loadState()">
-
-<svg viewBox="0 0 24 24">
-<rect x="3" y="3" width="18" height="18" rx="5"/>
-<path d="m7 12 3 3 7-7"/>
-</svg>
-
-<span>Tarefas</span>
-
-</button>
-
-
-<button onclick="openPage('goals',this);loadState()">
-
-<svg viewBox="0 0 24 24">
-<circle cx="12" cy="12" r="8"/>
-<circle cx="12" cy="12" r="4"/>
-<path d="m16 8 4-4"/>
-<path d="M20 4h-4M20 4v4"/>
-</svg>
-
-<span>Objetivos</span>
-
-</button>
-
-
-<button onclick="openPage('ia',this)">
-
-<svg viewBox="0 0 24 24">
-<path d="m12 2 1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5L12 2Z"/>
-<path d="m19 16 .7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7L19 16Z"/>
-</svg>
-
-<span>IA</span>
-
-</button>
+  <button
+    onclick="showPage('ia',this)"
+  >
+    <span class="icon">✦</span>
+    IA
+  </button>
 
 </nav>
+
+</div>
 
 
 <script>
 
-const input=document.getElementById("input");
-const messages=document.getElementById("messages");
+const chat = document.getElementById("chat");
+const messageInput = document.getElementById("message");
 
-input.addEventListener("keydown",function(e){
 
-  if(e.key==="Enter" && !e.shiftKey){
-
-    e.preventDefault();
-    sendMessage();
-
-  }
-
-});
-
-
-function timeNow(){
-
-  return new Date().toLocaleTimeString("pt-BR",{
-    hour:"2-digit",
-    minute:"2-digit"
-  });
-
-}
-
-
-function scrollBottom(){
-
-  setTimeout(()=>{
-    messages.scrollTop=messages.scrollHeight;
-  },50);
-
-}
-
-
-function escapeHtml(text){
-
-  const div=document.createElement("div");
-
-  div.textContent=text;
-
-  return div.innerHTML;
-
-}
-
-
-function formatText(text){
-
-  return escapeHtml(text)
-  .replace(/\n/g,"<br>")
-  .replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>");
-
-}
-
-
-function addUserMessage(text){
-
-  const div=document.createElement("div");
-
-  div.className="message user";
-
-  div.innerHTML=
-    formatText(text)+
-    `<div style="font-size:11px;text-align:right;opacity:.65;margin-top:4px">
-      ${timeNow()} ✓✓
-    </div>`;
-
-  messages.appendChild(div);
-
-  scrollBottom();
-
-}
-
-
-function addAIMessage(text){
-
-  const wrap=document.createElement("div");
-
-  wrap.className="ai-wrap";
-
-  wrap.innerHTML=`
-
-    <div class="mini-logo">LP</div>
-
-    <div>
-
-      <div class="message ai">
-        ${formatText(text)}
-      </div>
-
-      <div class="time">
-        ${timeNow()}
-      </div>
-
-    </div>
-
-  `;
-
-  messages.appendChild(wrap);
-
-  scrollBottom();
-
-}
-
-
-function showSearching(){
-
-  const div=document.createElement("div");
-
-  div.className="searching";
-
-  div.id="searching";
-
-  div.innerHTML=`
-
-    <div class="search-title">
-      🌐 Buscando na web...
-    </div>
-
-    <div class="search-sub">
-      Vou verificar as informações mais recentes para te ajudar.
-    </div>
-
-    <div class="dots">
-      <i></i>
-      <i></i>
-      <i></i>
-    </div>
-
-  `;
-
-  messages.appendChild(div);
-
-  scrollBottom();
-
-}
-
-
-function removeSearching(){
-
-  const element=document.getElementById("searching");
-
-  if(element){
-    element.remove();
-  }
-
-}
-
-
-async function sendMessage(){
-
-  const text=input.value.trim();
-
-  if(!text) return;
-
-  addUserMessage(text);
-
-  input.value="";
-
-  showSearching();
-
-  try{
-
-    const response=await fetch("/api/chat",{
-
-      method:"POST",
-
-      headers:{
-        "Content-Type":"application/json"
-      },
-
-      body:JSON.stringify({
-        message:text
-      })
-
-    });
-
-    const data=await response.json();
-
-    removeSearching();
-
-    if(data.reply){
-
-      addAIMessage(data.reply);
-
-    }else{
-
-      addAIMessage(
-        "Não consegui obter uma resposta agora."
-      );
-
-    }
-
-    loadState();
-
-  }catch(error){
-
-    removeSearching();
-
-    addAIMessage(
-      "Tive um problema para me conectar ao meu cérebro online. 😕"
-    );
-
-  }
-
-}
-
-
-function openPage(page,button){
+function showPage(page, button){
 
   document.querySelectorAll(".page")
-    .forEach(p=>p.classList.remove("active"));
+    .forEach(p => p.classList.remove("active"));
 
   document.getElementById(page)
     .classList.add("active");
 
   document.querySelectorAll(".nav button")
-    .forEach(b=>b.classList.remove("active"));
+    .forEach(b => b.classList.remove("active"));
 
   button.classList.add("active");
+}
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
+
+function addMessage(text,type="bot"){
+
+  const div = document.createElement("div");
+
+  div.className = "message " + type;
+
+  div.textContent = text;
+
+  chat.appendChild(div);
+
+  chat.scrollTop = chat.scrollHeight;
+
+  return div;
+}
+
+
+function addSearching(){
+
+  const div = document.createElement("div");
+
+  div.className = "searching";
+
+  div.textContent = "🌐 Buscando na web...";
+
+  chat.appendChild(div);
+
+  chat.scrollTop = chat.scrollHeight;
+
+  return div;
+}
+
+
+function addSources(sources){
+
+  if(!sources || !sources.length) return;
+
+  const box = document.createElement("div");
+
+  box.className = "sources";
+
+  const title = document.createElement("div");
+
+  title.className = "sources-title";
+
+  title.textContent = "🔎 Fontes consultadas";
+
+  box.appendChild(title);
+
+
+  sources.forEach(source => {
+
+    const link = document.createElement("a");
+
+    link.className = "source";
+
+    link.href = source.url;
+
+    link.target = "_blank";
+
+    link.rel = "noopener noreferrer";
+
+    link.textContent =
+      "↗ " + (source.title || source.url);
+
+    box.appendChild(link);
+
   });
+
+
+  const lastMessage =
+    chat.lastElementChild;
+
+  if(lastMessage){
+
+    lastMessage.appendChild(box);
+
+  }
+}
+
+
+async function sendMessage(){
+
+  const text =
+    messageInput.value.trim();
+
+  if(!text) return;
+
+  showPage(
+    "ia",
+    document.querySelectorAll(".nav button")[4]
+  );
+
+  addMessage(text,"user");
+
+  messageInput.value = "";
+
+  const searching = addSearching();
+
+
+  try{
+
+    const response =
+      await fetch("/api/chat",{
+
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+          message:text
+        })
+
+      });
+
+
+    const data =
+      await response.json();
+
+
+    searching.remove();
+
+
+    if(!response.ok){
+
+      addMessage(
+        data.error ||
+        "Não consegui falar com a IA."
+      );
+
+      return;
+    }
+
+
+    const botMessage =
+      addMessage(
+        data.reply || "Sem resposta."
+      );
+
+
+    if(data.usedWebSearch){
+
+      addSources(
+        data.sources
+      );
+
+    }
+
+
+    if(data.state){
+
+      renderState(
+        data.state
+      );
+
+    }
+
+  }catch(error){
+
+    searching.remove();
+
+    addMessage(
+      "⚠️ Não consegui conectar ao LifePilote."
+    );
+
+    console.error(error);
+
+  }
+
+}
+
+
+messageInput.addEventListener(
+  "keydown",
+  event => {
+
+    if(event.key === "Enter"){
+
+      sendMessage();
+
+    }
+
+  }
+);
+
+
+function renderState(state){
+
+  const events =
+    document.getElementById("eventsList");
+
+  const tasks =
+    document.getElementById("tasksList");
+
+  const goals =
+    document.getElementById("goalsList");
+
+
+  events.innerHTML = "";
+
+  tasks.innerHTML = "";
+
+  goals.innerHTML = "";
+
+
+  if(!state.events.length){
+
+    events.innerHTML =
+      '<div class="empty">Nenhum compromisso ainda.</div>';
+
+  }else{
+
+    state.events.forEach(event => {
+
+      const div =
+        document.createElement("div");
+
+      div.className = "item";
+
+      div.textContent =
+        "📅 " +
+        event.title +
+        " — " +
+        event.datetime;
+
+      events.appendChild(div);
+
+    });
+
+  }
+
+
+  if(!state.tasks.length){
+
+    tasks.innerHTML =
+      '<div class="empty">Nenhuma tarefa ainda.</div>';
+
+  }else{
+
+    state.tasks.forEach(task => {
+
+      const div =
+        document.createElement("div");
+
+      div.className = "item";
+
+      div.textContent =
+        (task.done ? "☑️ " : "⬜ ") +
+        task.text +
+        " · " +
+        task.priority;
+
+      tasks.appendChild(div);
+
+    });
+
+  }
+
+
+  if(!state.goals.length){
+
+    goals.innerHTML =
+      '<div class="empty">Nenhum objetivo ainda.</div>';
+
+  }else{
+
+    state.goals.forEach(goal => {
+
+      const div =
+        document.createElement("div");
+
+      div.className = "item";
+
+      div.textContent =
+        "🎯 " + goal.text;
+
+      goals.appendChild(div);
+
+    });
+
+  }
 
 }
 
@@ -1064,161 +731,28 @@ async function loadState(){
 
   try{
 
-    const response=await fetch("/api/state");
+    const response =
+      await fetch("/api/state");
 
-    const state=await response.json();
+    const state =
+      await response.json();
 
-    renderEvents(state.events || []);
-    renderTasks(state.tasks || []);
-    renderGoals(state.goals || []);
+    renderState(state);
 
   }catch(error){
 
-    console.log("Não foi possível carregar o estado.");
+    console.error(error);
 
   }
-
-}
-
-
-function renderEvents(events){
-
-  const container=document.getElementById("eventsList");
-
-  if(!events.length){
-
-    container.innerHTML=`
-
-      <div class="empty">
-        <div class="empty-icon">📅</div>
-        Nenhum compromisso criado ainda.
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-  container.innerHTML=events.map(event=>`
-
-    <div class="item">
-
-      <div class="item-icon"
-           style="background:rgba(83,124,255,.12);color:#6393ff">
-        📅
-      </div>
-
-      <div class="item-text">
-
-        <strong>${escapeHtml(event.title)}</strong>
-
-        <small>
-          ${escapeHtml(event.datetime || "")}
-        </small>
-
-      </div>
-
-    </div>
-
-  `).join("");
-
-}
-
-
-function renderTasks(tasks){
-
-  const container=document.getElementById("tasksList");
-
-  if(!tasks.length){
-
-    container.innerHTML=`
-
-      <div class="empty">
-        <div class="empty-icon">✓</div>
-        Nenhuma tarefa criada ainda.
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-  container.innerHTML=tasks.map(task=>`
-
-    <div class="item">
-
-      <div class="item-icon"
-           style="background:rgba(39,223,195,.12);color:#27dfc3">
-        ${task.done ? "✓" : "○"}
-      </div>
-
-      <div class="item-text">
-
-        <strong>${escapeHtml(task.text)}</strong>
-
-        <small>
-          ${task.done ? "Concluída" : "Pendente"}
-        </small>
-
-      </div>
-
-      <div class="priority">
-        ${escapeHtml(task.priority || "media")}
-      </div>
-
-    </div>
-
-  `).join("");
-
-}
-
-
-function renderGoals(goals){
-
-  const container=document.getElementById("goalsList");
-
-  if(!goals.length){
-
-    container.innerHTML=`
-
-      <div class="empty">
-        <div class="empty-icon">🎯</div>
-        Nenhum objetivo criado ainda.
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-  container.innerHTML=goals.map(goal=>`
-
-    <div class="item">
-
-      <div class="item-icon"
-           style="background:rgba(255,201,79,.12);color:#ffc94f">
-        🎯
-      </div>
-
-      <div class="item-text">
-
-        <strong>${escapeHtml(goal.text)}</strong>
-
-        <small>Objetivo ativo</small>
-
-      </div>
-
-    </div>
-
-  `).join("");
 
 }
 
 
 loadState();
+
+addMessage(
+  "Olá! Eu sou o LifePilote. ✨\nComo posso ajudar você?"
+);
 
 </script>
 
