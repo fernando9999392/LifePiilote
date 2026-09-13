@@ -11,11 +11,19 @@ const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
+// ===============================
+// ESTADO TEMPORÁRIO DO LIFEPILOTE
+// ===============================
+
 let state = {
   tasks: [],
   events: [],
   goals: []
 };
+
+// ===============================
+// FERRAMENTAS DO ASSISTENTE
+// ===============================
 
 const tools = [
   {
@@ -112,6 +120,10 @@ const tools = [
   }
 ];
 
+// ===============================
+// EXECUTAR FERRAMENTAS
+// ===============================
+
 function callTool(name, args) {
 
   if (name === "create_task") {
@@ -188,6 +200,9 @@ function callTool(name, args) {
   };
 }
 
+// ===============================
+// CHAT COM A IA
+// ===============================
 
 app.post("/api/chat", async (req, res) => {
 
@@ -196,9 +211,11 @@ app.post("/api/chat", async (req, res) => {
     const input = req.body.message;
 
     if (!input) {
+
       return res.status(400).json({
         error: "Mensagem vazia."
       });
+
     }
 
     let response = await client.responses.create({
@@ -222,6 +239,7 @@ pessoas, empresas, produtos ou qualquer informação
 que possa ter mudado, USE A BUSCA NA WEB.
 
 Quando usar a busca:
+
 - analise as fontes;
 - responda usando as informações encontradas;
 - não invente informações;
@@ -249,6 +267,9 @@ Você é o cérebro online do LifePilote.
       ]
     });
 
+    // ===============================
+    // EXECUTAR FERRAMENTAS
+    // ===============================
 
     while (
       response.output.some(
@@ -269,7 +290,9 @@ Você é o cérebro online do LifePilote.
         output: JSON.stringify(
           callTool(
             call.name,
-            JSON.parse(call.arguments || "{}")
+            JSON.parse(
+              call.arguments || "{}"
+            )
           )
         )
 
@@ -293,11 +316,14 @@ Você é o cérebro online do LifePilote.
       });
     }
 
+    // ===============================
+    // IDENTIFICAR BUSCA NA WEB
+    // ===============================
 
-    const usedWebSearch = response.output.some(
-      x => x.type === "web_search_call"
-    );
-
+    const usedWebSearch =
+      response.output.some(
+        x => x.type === "web_search_call"
+      );
 
     const sources = [];
 
@@ -313,11 +339,16 @@ Você é o cérebro online do LifePilote.
 
           if (
             source.url &&
-            !sources.some(s => s.url === source.url)
+            !sources.some(
+              s => s.url === source.url
+            )
           ) {
 
             sources.push({
-              title: source.title || source.url,
+              title:
+                source.title ||
+                source.url,
+
               url: source.url
             });
 
@@ -325,7 +356,6 @@ Você é o cérebro online do LifePilote.
         }
       }
     }
-
 
     res.json({
 
@@ -339,7 +369,6 @@ Você é o cérebro online do LifePilote.
 
     });
 
-
   } catch (error) {
 
     console.error(
@@ -349,7 +378,8 @@ Você é o cérebro online do LifePilote.
 
     res.status(500).json({
 
-      error: "Falha ao falar com a IA."
+      error:
+        "Falha ao falar com a IA."
 
     });
 
@@ -357,6 +387,9 @@ Você é o cérebro online do LifePilote.
 
 });
 
+// ===============================
+// ESTADO DO LIFEPILOTE
+// ===============================
 
 app.get("/api/state", (req, res) => {
 
@@ -364,13 +397,18 @@ app.get("/api/state", (req, res) => {
 
 });
 
+// ===============================
+// SERVIDOR
+// ===============================
 
-const PORT = process.env.PORT || 3000;
+const PORT =
+  process.env.PORT || 3000;
 
 app.listen(PORT, () => {
 
   console.log(
-    "LifePilote online na porta " + PORT
+    "LifePilote online na porta " +
+    PORT
   );
 
 });
