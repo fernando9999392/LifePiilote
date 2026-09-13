@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>LifePilote</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -19,6 +21,154 @@ body{
   color:white;
   min-height:100vh;
 }
+
+button,
+input{
+  font-family:inherit;
+}
+
+.hidden{
+  display:none !important;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+#authScreen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+}
+
+.auth-card{
+  width:100%;
+  max-width:430px;
+  padding:30px 24px;
+  border-radius:30px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(25px);
+  box-shadow:0 20px 70px rgba(0,0,0,.35);
+}
+
+.auth-logo{
+  width:70px;
+  height:70px;
+  margin:0 auto 18px;
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+  font-weight:bold;
+  background:linear-gradient(135deg,#a05cff,#4d83ff);
+  box-shadow:0 0 35px #754cff66;
+}
+
+.auth-title{
+  text-align:center;
+  font-size:28px;
+  margin-bottom:7px;
+}
+
+.auth-subtitle{
+  text-align:center;
+  color:#aaa3c8;
+  font-size:14px;
+  margin-bottom:25px;
+}
+
+.auth-input{
+  width:100%;
+  height:50px;
+  margin-bottom:12px;
+  padding:0 15px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:15px;
+  outline:none;
+  background:rgba(0,0,0,.20);
+  color:white;
+}
+
+.auth-input::placeholder{
+  color:#77718e;
+}
+
+.auth-btn{
+  width:100%;
+  height:50px;
+  border:0;
+  border-radius:15px;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  background:linear-gradient(135deg,#8d55ff,#516eff);
+  margin-top:5px;
+}
+
+.google-btn{
+  width:100%;
+  height:50px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:15px;
+  color:white;
+  background:rgba(255,255,255,.07);
+  cursor:pointer;
+  margin-top:12px;
+}
+
+.auth-divider{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:20px 0;
+  color:#77718e;
+  font-size:12px;
+}
+
+.auth-divider::before,
+.auth-divider::after{
+  content:"";
+  height:1px;
+  flex:1;
+  background:#ffffff15;
+}
+
+.auth-switch{
+  text-align:center;
+  margin-top:20px;
+  color:#aaa3c8;
+  font-size:13px;
+}
+
+.auth-switch button{
+  border:0;
+  background:none;
+  color:#a77aff;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.auth-error{
+  color:#ff8c9c;
+  font-size:13px;
+  text-align:center;
+  margin-top:12px;
+}
+
+.auth-success{
+  color:#73e6a5;
+  font-size:13px;
+  text-align:center;
+  margin-top:12px;
+}
+
+/* =========================
+   APP
+========================= */
 
 .app{
   max-width:600px;
@@ -71,6 +221,31 @@ header{
   background:#143b2a;
   padding:7px 10px;
   border-radius:20px;
+}
+
+.user-menu{
+  margin-top:12px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.user-email{
+  font-size:11px;
+  color:#9d96b8;
+  max-width:160px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.logout-btn{
+  border:0;
+  background:#ffffff09;
+  color:#aaa3c8;
+  padding:6px 9px;
+  border-radius:10px;
+  cursor:pointer;
 }
 
 main{
@@ -157,6 +332,10 @@ main{
   50%{opacity:.4}
 }
 
+/* =========================
+   COMPOSER
+========================= */
+
 .composer{
   position:fixed;
   bottom:70px;
@@ -164,12 +343,13 @@ main{
   transform:translateX(-50%);
   width:min(560px,calc(100% - 30px));
   display:flex;
-  gap:8px;
+  gap:7px;
   padding:8px;
   border-radius:20px;
   background:rgba(20,14,45,.94);
   border:1px solid #ffffff16;
   backdrop-filter:blur(20px);
+  z-index:20;
 }
 
 .composer input{
@@ -186,6 +366,17 @@ main{
   color:#77718e;
 }
 
+.attach{
+  width:44px;
+  height:44px;
+  border:0;
+  border-radius:14px;
+  color:white;
+  font-size:21px;
+  background:rgba(255,255,255,.08);
+  cursor:pointer;
+}
+
 .send{
   width:44px;
   height:44px;
@@ -196,6 +387,44 @@ main{
   background:linear-gradient(135deg,#8d55ff,#516eff);
   cursor:pointer;
 }
+
+/* =========================
+   ATTACH MENU
+========================= */
+
+.attach-menu{
+  position:fixed;
+  bottom:130px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(330px,calc(100% - 40px));
+  padding:12px;
+  border-radius:22px;
+  background:rgba(20,14,45,.98);
+  border:1px solid #ffffff15;
+  backdrop-filter:blur(25px);
+  box-shadow:0 20px 50px rgba(0,0,0,.45);
+  z-index:30;
+}
+
+.attach-option{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:white;
+  text-align:left;
+  padding:14px;
+  border-radius:14px;
+  cursor:pointer;
+}
+
+.attach-option:hover{
+  background:#ffffff09;
+}
+
+/* =========================
+   NAV
+========================= */
 
 .nav{
   position:fixed;
@@ -209,6 +438,7 @@ main{
   align-items:center;
   background:rgba(10,7,24,.96);
   border-top:1px solid #ffffff12;
+  z-index:20;
 }
 
 .nav button{
@@ -221,6 +451,7 @@ main{
   gap:4px;
   font-size:10px;
   cursor:pointer;
+  min-width:55px;
 }
 
 .nav button.active{
@@ -230,6 +461,10 @@ main{
 .icon{
   font-size:20px;
 }
+
+/* =========================
+   LISTAS
+========================= */
 
 .item{
   padding:12px;
@@ -266,62 +501,196 @@ main{
   white-space:nowrap;
 }
 
-.source:hover{
-  text-decoration:underline;
-}
-
 h2{
   font-size:21px;
   margin:8px 0 15px;
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<!-- =========================
+     LOGIN
+========================= -->
 
-<header>
-  <div class="logo-area">
-    <div class="logo">LP</div>
-    <div>
-      <div class="brand">LifePilote</div>
-      <div class="subtitle">Seu copiloto pessoal</div>
+<div id="authScreen">
+
+  <div class="auth-card">
+
+    <div class="auth-logo">LP</div>
+
+    <h1 class="auth-title" id="authTitle">
+      Bem-vindo ao LifePilote
+    </h1>
+
+    <p class="auth-subtitle" id="authSubtitle">
+      Seu copiloto pessoal inteligente.
+    </p>
+
+    <input
+      id="authEmail"
+      class="auth-input"
+      type="email"
+      placeholder="Seu e-mail"
+      autocomplete="email"
+    >
+
+    <input
+      id="authPassword"
+      class="auth-input"
+      type="password"
+      placeholder="Sua senha"
+      autocomplete="current-password"
+    >
+
+    <button
+      id="emailAuthButton"
+      class="auth-btn"
+      onclick="handleEmailAuth()"
+    >
+      Entrar
+    </button>
+
+    <div class="auth-divider">
+      ou
     </div>
+
+    <button
+      class="google-btn"
+      onclick="signInWithGoogle()"
+    >
+      🔵 Continuar com Google
+    </button>
+
+    <div id="authMessage"></div>
+
+    <div class="auth-switch">
+
+      <span id="authSwitchText">
+        Ainda não tem uma conta?
+      </span>
+
+      <button onclick="toggleAuthMode()">
+        <span id="authSwitchButton">
+          Criar conta
+        </span>
+      </button>
+
+    </div>
+
   </div>
 
-  <div class="online">● Online</div>
+</div>
+
+
+<!-- =========================
+     APP
+========================= -->
+
+<div
+  class="app hidden"
+  id="app"
+>
+
+<header>
+
+  <div>
+
+    <div class="logo-area">
+
+      <div class="logo">
+        LP
+      </div>
+
+      <div>
+
+        <div class="brand">
+          LifePilote
+        </div>
+
+        <div class="subtitle">
+          Seu copiloto pessoal
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="user-menu">
+
+      <span
+        id="userEmail"
+        class="user-email"
+      ></span>
+
+      <button
+        class="logout-btn"
+        onclick="logout()"
+      >
+        Sair
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="online">
+    ● Online
+  </div>
+
 </header>
 
 
 <main>
 
 <!-- INÍCIO -->
-<section id="home" class="page active">
+
+<section
+  id="home"
+  class="page active"
+>
 
   <div class="hero">
-    <h1>Olá 👋</h1>
+
+    <h1>
+      Olá 👋
+    </h1>
+
     <p>
       Estou pronto para ajudar você a organizar sua vida,
       pesquisar informações e cuidar dos seus objetivos.
     </p>
+
   </div>
 
   <div class="card">
-    <div class="card-title">✨ O que posso fazer?</div>
+
+    <div class="card-title">
+      ✨ O que posso fazer?
+    </div>
+
     <p class="empty">
       Pesquisar na web, criar tarefas, organizar compromissos,
       acompanhar objetivos e conversar com você.
     </p>
+
   </div>
 
 </section>
 
 
 <!-- AGENDA -->
-<section id="agenda" class="page">
 
-  <h2>📅 Agenda</h2>
+<section
+  id="agenda"
+  class="page"
+>
+
+  <h2>
+    📅 Agenda
+  </h2>
 
   <div id="eventsList"></div>
 
@@ -329,9 +698,15 @@ h2{
 
 
 <!-- TAREFAS -->
-<section id="tasks" class="page">
 
-  <h2>✅ Tarefas</h2>
+<section
+  id="tasks"
+  class="page"
+>
+
+  <h2>
+    ✅ Tarefas
+  </h2>
 
   <div id="tasksList"></div>
 
@@ -339,9 +714,15 @@ h2{
 
 
 <!-- OBJETIVOS -->
-<section id="goals" class="page">
 
-  <h2>🎯 Objetivos</h2>
+<section
+  id="goals"
+  class="page"
+>
+
+  <h2>
+    🎯 Objetivos
+  </h2>
 
   <div id="goalsList"></div>
 
@@ -349,18 +730,36 @@ h2{
 
 
 <!-- IA -->
-<section id="ia" class="page">
 
-  <h2>🤖 LifePilote IA</h2>
+<section
+  id="ia"
+  class="page"
+>
 
-  <div id="chat" class="chat"></div>
+  <h2>
+    🤖 LifePilote IA
+  </h2>
+
+  <div
+    id="chat"
+    class="chat"
+  ></div>
 
 </section>
 
 </main>
 
 
+<!-- COMPOSER -->
+
 <div class="composer">
+
+  <button
+    class="attach"
+    onclick="toggleAttachMenu()"
+  >
+    ✦
+  </button>
 
   <input
     id="message"
@@ -372,10 +771,69 @@ h2{
   <button
     class="send"
     onclick="sendMessage()"
-  >✦</button>
+  >
+    ➤
+  </button>
 
 </div>
 
+
+<!-- MENU DE ANEXOS -->
+
+<div
+  id="attachMenu"
+  class="attach-menu hidden"
+>
+
+  <button
+    class="attach-option"
+    onclick="chooseFile()"
+  >
+    📎 Anexar arquivo
+  </button>
+
+  <button
+    class="attach-option"
+    onclick="openCamera()"
+  >
+    📷 Tirar foto
+  </button>
+
+  <button
+    class="attach-option"
+    onclick="openGallery()"
+  >
+    🖼️ Galeria
+  </button>
+
+  <button
+    class="attach-option"
+    onclick="openCamera()"
+  >
+    📸 Usar câmera
+  </button>
+
+</div>
+
+
+<!-- INPUTS OCULTOS -->
+
+<input
+  id="fileInput"
+  type="file"
+  hidden
+>
+
+<input
+  id="cameraInput"
+  type="file"
+  accept="image/*"
+  capture="environment"
+  hidden
+>
+
+
+<!-- NAV -->
 
 <nav class="nav">
 
@@ -383,36 +841,65 @@ h2{
     class="active"
     onclick="showPage('home',this)"
   >
-    <span class="icon">⌂</span>
+
+    <span class="icon">
+      ⌂
+    </span>
+
     Início
+
   </button>
+
 
   <button
     onclick="showPage('agenda',this)"
   >
-    <span class="icon">▣</span>
+
+    <span class="icon">
+      ▣
+    </span>
+
     Agenda
+
   </button>
+
 
   <button
     onclick="showPage('tasks',this)"
   >
-    <span class="icon">✓</span>
+
+    <span class="icon">
+      ✓
+    </span>
+
     Tarefas
+
   </button>
+
 
   <button
     onclick="showPage('goals',this)"
   >
-    <span class="icon">◈</span>
+
+    <span class="icon">
+      ◈
+    </span>
+
     Objetivos
+
   </button>
+
 
   <button
     onclick="showPage('ia',this)"
   >
-    <span class="icon">✦</span>
+
+    <span class="icon">
+      ✦
+    </span>
+
     IA
+
   </button>
 
 </nav>
@@ -420,142 +907,612 @@ h2{
 </div>
 
 
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 
-const chat = document.getElementById("chat");
-const messageInput = document.getElementById("message");
+/* ==================================
+   CONFIGURAÇÃO SUPABASE
+================================== */
+
+const SUPABASE_URL =
+  "https://fowntjokvsavynurrgcx.supabase.co/rest/v1/";
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_JJSRFR9rWNTilRQkouUSNQ_9xE-hA3u";
 
 
-function showPage(page, button){
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 
-  document.querySelectorAll(".page")
-    .forEach(p => p.classList.remove("active"));
 
-  document.getElementById(page)
-    .classList.add("active");
+/* ==================================
+   VARIÁVEIS
+================================== */
 
-  document.querySelectorAll(".nav button")
-    .forEach(b => b.classList.remove("active"));
+let authMode = "login";
 
-  button.classList.add("active");
+const chat =
+  document.getElementById("chat");
+
+const messageInput =
+  document.getElementById("message");
+
+
+/* ==================================
+   LOGIN / CADASTRO
+================================== */
+
+function toggleAuthMode(){
+
+  authMode =
+    authMode === "login"
+      ? "signup"
+      : "login";
+
+  const title =
+    document.getElementById("authTitle");
+
+  const subtitle =
+    document.getElementById("authSubtitle");
+
+  const button =
+    document.getElementById("emailAuthButton");
+
+  const switchText =
+    document.getElementById("authSwitchText");
+
+  const switchButton =
+    document.getElementById("authSwitchButton");
+
+
+  if(authMode === "signup"){
+
+    title.textContent =
+      "Crie sua conta";
+
+    subtitle.textContent =
+      "Comece a usar seu copiloto pessoal.";
+
+    button.textContent =
+      "Criar conta";
+
+    switchText.textContent =
+      "Já tem uma conta?";
+
+    switchButton.textContent =
+      "Entrar";
+
+  }else{
+
+    title.textContent =
+      "Bem-vindo ao LifePilote";
+
+    subtitle.textContent =
+      "Seu copiloto pessoal inteligente.";
+
+    button.textContent =
+      "Entrar";
+
+    switchText.textContent =
+      "Ainda não tem uma conta?";
+
+    switchButton.textContent =
+      "Criar conta";
+
+  }
+
+  clearAuthMessage();
 }
 
 
-function addMessage(text,type="bot"){
+/* ==================================
+   MENSAGEM AUTH
+================================== */
 
-  const div = document.createElement("div");
+function showAuthMessage(
+  text,
+  success=false
+){
 
-  div.className = "message " + type;
+  const box =
+    document.getElementById(
+      "authMessage"
+    );
 
-  div.textContent = text;
+  box.className =
+    success
+      ? "auth-success"
+      : "auth-error";
+
+  box.textContent =
+    text;
+}
+
+
+function clearAuthMessage(){
+
+  const box =
+    document.getElementById(
+      "authMessage"
+    );
+
+  box.className = "";
+
+  box.textContent = "";
+
+}
+
+
+/* ==================================
+   EMAIL / SENHA
+================================== */
+
+async function handleEmailAuth(){
+
+  clearAuthMessage();
+
+  const email =
+    document.getElementById(
+      "authEmail"
+    ).value.trim();
+
+  const password =
+    document.getElementById(
+      "authPassword"
+    ).value;
+
+
+  if(!email || !password){
+
+    showAuthMessage(
+      "Preencha seu e-mail e sua senha."
+    );
+
+    return;
+  }
+
+
+  if(authMode === "signup"){
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.auth.signUp({
+
+        email,
+        password
+
+      });
+
+
+    if(error){
+
+      showAuthMessage(
+        error.message
+      );
+
+      return;
+    }
+
+
+    if(data.session){
+
+      showApp(
+        data.user
+      );
+
+    }else{
+
+      showAuthMessage(
+        "Conta criada! Verifique seu e-mail para confirmar a conta.",
+        true
+      );
+
+    }
+
+  }else{
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.auth.signInWithPassword({
+
+        email,
+        password
+
+      });
+
+
+    if(error){
+
+      showAuthMessage(
+        "E-mail ou senha incorretos."
+      );
+
+      return;
+    }
+
+
+    showApp(
+      data.user
+    );
+
+  }
+
+}
+
+
+/* ==================================
+   GOOGLE
+================================== */
+
+async function signInWithGoogle(){
+
+  clearAuthMessage();
+
+  const {
+    error
+  } =
+    await supabaseClient.auth.signInWithOAuth({
+
+      provider:"google",
+
+      options:{
+        redirectTo:
+          window.location.origin
+      }
+
+    });
+
+
+  if(error){
+
+    showAuthMessage(
+      error.message
+    );
+
+  }
+
+}
+
+
+/* ==================================
+   LOGOUT
+================================== */
+
+async function logout(){
+
+  await supabaseClient.auth.signOut();
+
+  document
+    .getElementById("app")
+    .classList.add("hidden");
+
+  document
+    .getElementById("authScreen")
+    .classList.remove("hidden");
+
+}
+
+
+/* ==================================
+   MOSTRAR APP
+================================== */
+
+function showApp(user){
+
+  document
+    .getElementById("authScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("app")
+    .classList.remove("hidden");
+
+
+  const email =
+    document.getElementById(
+      "userEmail"
+    );
+
+
+  email.textContent =
+    user?.email || "";
+
+
+  loadState();
+
+}
+
+
+/* ==================================
+   VERIFICAR SESSÃO
+================================== */
+
+async function checkSession(){
+
+  const {
+    data
+  } =
+    await supabaseClient.auth.getSession();
+
+
+  if(data.session){
+
+    showApp(
+      data.session.user
+    );
+
+  }
+
+}
+
+
+/* ==================================
+   ALTERAÇÃO DE LOGIN
+================================== */
+
+supabaseClient.auth.onAuthStateChange(
+  (event, session) => {
+
+    if(session){
+
+      showApp(
+        session.user
+      );
+
+    }
+
+  }
+);
+
+
+/* ==================================
+   NAVEGAÇÃO
+================================== */
+
+function showPage(
+  page,
+  button
+){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(
+      p =>
+        p.classList.remove(
+          "active"
+        )
+    );
+
+
+  document
+    .getElementById(page)
+    .classList.add("active");
+
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(
+      b =>
+        b.classList.remove(
+          "active"
+        )
+    );
+
+
+  button.classList.add("active");
+
+}
+
+
+/* ==================================
+   CHAT
+================================== */
+
+function addMessage(
+  text,
+  type="bot"
+){
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+  div.className =
+    "message " + type;
+
+  div.textContent =
+    text;
 
   chat.appendChild(div);
 
-  chat.scrollTop = chat.scrollHeight;
+  chat.scrollTop =
+    chat.scrollHeight;
 
   return div;
+
 }
 
+
+/* ==================================
+   BUSCANDO
+================================== */
 
 function addSearching(){
 
-  const div = document.createElement("div");
+  const div =
+    document.createElement(
+      "div"
+    );
 
-  div.className = "searching";
+  div.className =
+    "searching";
 
-  div.textContent = "🌐 Buscando na web...";
+  div.textContent =
+    "🌐 Buscando na web...";
 
   chat.appendChild(div);
 
-  chat.scrollTop = chat.scrollHeight;
+  chat.scrollTop =
+    chat.scrollHeight;
 
   return div;
+
 }
 
 
-function addSources(sources){
+/* ==================================
+   FONTES
+================================== */
 
-  if(!sources || !sources.length) return;
+function addSources(
+  sources
+){
 
-  const box = document.createElement("div");
+  if(
+    !sources ||
+    !sources.length
+  ) return;
 
-  box.className = "sources";
 
-  const title = document.createElement("div");
+  const box =
+    document.createElement(
+      "div"
+    );
 
-  title.className = "sources-title";
+  box.className =
+    "sources";
 
-  title.textContent = "🔎 Fontes consultadas";
+
+  const title =
+    document.createElement(
+      "div"
+    );
+
+  title.className =
+    "sources-title";
+
+  title.textContent =
+    "🔎 Fontes consultadas";
+
 
   box.appendChild(title);
 
 
-  sources.forEach(source => {
+  sources.forEach(
+    source => {
 
-    const link = document.createElement("a");
+      const link =
+        document.createElement(
+          "a"
+        );
 
-    link.className = "source";
+      link.className =
+        "source";
 
-    link.href = source.url;
+      link.href =
+        source.url;
 
-    link.target = "_blank";
+      link.target =
+        "_blank";
 
-    link.rel = "noopener noreferrer";
+      link.rel =
+        "noopener noreferrer";
 
-    link.textContent =
-      "↗ " + (source.title || source.url);
+      link.textContent =
+        "↗ " +
+        (
+          source.title ||
+          source.url
+        );
 
-    box.appendChild(link);
 
-  });
+      box.appendChild(link);
+
+    }
+  );
 
 
   const lastMessage =
     chat.lastElementChild;
 
+
   if(lastMessage){
 
-    lastMessage.appendChild(box);
+    lastMessage.appendChild(
+      box
+    );
 
   }
+
 }
 
+
+/* ==================================
+   ENVIAR MENSAGEM
+================================== */
 
 async function sendMessage(){
 
   const text =
     messageInput.value.trim();
 
+
   if(!text) return;
+
 
   showPage(
     "ia",
-    document.querySelectorAll(".nav button")[4]
+    document.querySelectorAll(
+      ".nav button"
+    )[4]
   );
 
-  addMessage(text,"user");
+
+  addMessage(
+    text,
+    "user"
+  );
+
 
   messageInput.value = "";
 
-  const searching = addSearching();
+
+  const searching =
+    addSearching();
 
 
   try{
 
     const response =
-      await fetch("/api/chat",{
+      await fetch(
+        "/api/chat",
+        {
 
-        method:"POST",
+          method:"POST",
 
-        headers:{
-          "Content-Type":"application/json"
-        },
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
 
-        body:JSON.stringify({
-          message:text
-        })
+          body:
+            JSON.stringify({
+              message:text
+            })
 
-      });
+        }
+      );
 
 
     const data =
@@ -573,13 +1530,14 @@ async function sendMessage(){
       );
 
       return;
+
     }
 
 
-    const botMessage =
-      addMessage(
-        data.reply || "Sem resposta."
-      );
+    addMessage(
+      data.reply ||
+      "Sem resposta."
+    );
 
 
     if(data.usedWebSearch){
@@ -599,6 +1557,7 @@ async function sendMessage(){
 
     }
 
+
   }catch(error){
 
     searching.remove();
@@ -614,6 +1573,10 @@ async function sendMessage(){
 }
 
 
+/* ==================================
+   ENTER
+================================== */
+
 messageInput.addEventListener(
   "keydown",
   event => {
@@ -628,16 +1591,28 @@ messageInput.addEventListener(
 );
 
 
-function renderState(state){
+/* ==================================
+   ESTADO
+================================== */
+
+function renderState(
+  state
+){
 
   const events =
-    document.getElementById("eventsList");
+    document.getElementById(
+      "eventsList"
+    );
 
   const tasks =
-    document.getElementById("tasksList");
+    document.getElementById(
+      "tasksList"
+    );
 
   const goals =
-    document.getElementById("goalsList");
+    document.getElementById(
+      "goalsList"
+    );
 
 
   events.innerHTML = "";
@@ -654,22 +1629,27 @@ function renderState(state){
 
   }else{
 
-    state.events.forEach(event => {
+    state.events.forEach(
+      event => {
 
-      const div =
-        document.createElement("div");
+        const div =
+          document.createElement(
+            "div"
+          );
 
-      div.className = "item";
+        div.className =
+          "item";
 
-      div.textContent =
-        "📅 " +
-        event.title +
-        " — " +
-        event.datetime;
+        div.textContent =
+          "📅 " +
+          event.title +
+          " — " +
+          event.datetime;
 
-      events.appendChild(div);
+        events.appendChild(div);
 
-    });
+      }
+    );
 
   }
 
@@ -681,22 +1661,31 @@ function renderState(state){
 
   }else{
 
-    state.tasks.forEach(task => {
+    state.tasks.forEach(
+      task => {
 
-      const div =
-        document.createElement("div");
+        const div =
+          document.createElement(
+            "div"
+          );
 
-      div.className = "item";
+        div.className =
+          "item";
 
-      div.textContent =
-        (task.done ? "☑️ " : "⬜ ") +
-        task.text +
-        " · " +
-        task.priority;
+        div.textContent =
+          (
+            task.done
+              ? "☑️ "
+              : "⬜ "
+          ) +
+          task.text +
+          " · " +
+          task.priority;
 
-      tasks.appendChild(div);
+        tasks.appendChild(div);
 
-    });
+      }
+    );
 
   }
 
@@ -708,36 +1697,50 @@ function renderState(state){
 
   }else{
 
-    state.goals.forEach(goal => {
+    state.goals.forEach(
+      goal => {
 
-      const div =
-        document.createElement("div");
+        const div =
+          document.createElement(
+            "div"
+          );
 
-      div.className = "item";
+        div.className =
+          "item";
 
-      div.textContent =
-        "🎯 " + goal.text;
+        div.textContent =
+          "🎯 " +
+          goal.text;
 
-      goals.appendChild(div);
+        goals.appendChild(div);
 
-    });
+      }
+    );
 
   }
 
 }
 
 
+/* ==================================
+   CARREGAR ESTADO
+================================== */
+
 async function loadState(){
 
   try{
 
     const response =
-      await fetch("/api/state");
+      await fetch(
+        "/api/state"
+      );
 
     const state =
       await response.json();
 
-    renderState(state);
+    renderState(
+      state
+    );
 
   }catch(error){
 
@@ -748,11 +1751,89 @@ async function loadState(){
 }
 
 
-loadState();
+/* ==================================
+   ANEXOS
+================================== */
 
-addMessage(
-  "Olá! Eu sou o LifePilote. ✨\nComo posso ajudar você?"
-);
+function toggleAttachMenu(){
+
+  document
+    .getElementById(
+      "attachMenu"
+    )
+    .classList.toggle(
+      "hidden"
+    );
+
+}
+
+
+function chooseFile(){
+
+  document
+    .getElementById(
+      "attachMenu"
+    )
+    .classList.add(
+      "hidden"
+    );
+
+  document
+    .getElementById(
+      "fileInput"
+    )
+    .click();
+
+}
+
+
+function openGallery(){
+
+  document
+    .getElementById(
+      "attachMenu"
+    )
+    .classList.add(
+      "hidden"
+    );
+
+  const input =
+    document.getElementById(
+      "fileInput"
+    );
+
+  input.accept =
+    "image/*";
+
+  input.click();
+
+}
+
+
+function openCamera(){
+
+  document
+    .getElementById(
+      "attachMenu"
+    )
+    .classList.add(
+      "hidden"
+    );
+
+  document
+    .getElementById(
+      "cameraInput"
+    )
+    .click();
+
+}
+
+
+/* ==================================
+   INICIAR
+================================== */
+
+checkSession();
 
 </script>
 
