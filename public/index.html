@@ -1,1802 +1,528 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>LifePilote</title>
-
-<style>
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-body{
-  font-family:Arial,sans-serif;
-  background:
-    radial-gradient(circle at top,#25145c 0%,#100b29 38%,#070512 100%);
-  color:white;
-  min-height:100vh;
-}
-
-button,
-input{
-  font-family:inherit;
-}
-
-.hidden{
-  display:none !important;
-}
-
-/* =========================
-   LOGIN
-========================= */
-
-#authScreen{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:25px;
-}
-
-.auth-card{
-  width:100%;
-  max-width:430px;
-  padding:30px 24px;
-  border-radius:30px;
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.12);
-  backdrop-filter:blur(25px);
-  box-shadow:0 20px 70px rgba(0,0,0,.35);
-}
-
-.auth-logo{
-  width:70px;
-  height:70px;
-  margin:0 auto 18px;
-  border-radius:22px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:25px;
-  font-weight:bold;
-  background:linear-gradient(135deg,#a05cff,#4d83ff);
-  box-shadow:0 0 35px #754cff66;
-}
-
-.auth-title{
-  text-align:center;
-  font-size:28px;
-  margin-bottom:7px;
-}
-
-.auth-subtitle{
-  text-align:center;
-  color:#aaa3c8;
-  font-size:14px;
-  margin-bottom:25px;
-}
-
-.auth-input{
-  width:100%;
-  height:50px;
-  margin-bottom:12px;
-  padding:0 15px;
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:15px;
-  outline:none;
-  background:rgba(0,0,0,.20);
-  color:white;
-}
-
-.auth-input::placeholder{
-  color:#77718e;
-}
-
-.auth-btn{
-  width:100%;
-  height:50px;
-  border:0;
-  border-radius:15px;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  background:linear-gradient(135deg,#8d55ff,#516eff);
-  margin-top:5px;
-}
-
-.google-btn{
-  width:100%;
-  height:50px;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:15px;
-  color:white;
-  background:rgba(255,255,255,.07);
-  cursor:pointer;
-  margin-top:12px;
-}
-
-.auth-divider{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:20px 0;
-  color:#77718e;
-  font-size:12px;
-}
-
-.auth-divider::before,
-.auth-divider::after{
-  content:"";
-  height:1px;
-  flex:1;
-  background:#ffffff15;
-}
-
-.auth-switch{
-  text-align:center;
-  margin-top:20px;
-  color:#aaa3c8;
-  font-size:13px;
-}
-
-.auth-switch button{
-  border:0;
-  background:none;
-  color:#a77aff;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.auth-error{
-  color:#ff8c9c;
-  font-size:13px;
-  text-align:center;
-  margin-top:12px;
-}
-
-.auth-success{
-  color:#73e6a5;
-  font-size:13px;
-  text-align:center;
-  margin-top:12px;
-}
-
-/* =========================
-   APP
-========================= */
-
-.app{
-  max-width:600px;
-  margin:auto;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-}
-
-header{
-  padding:22px 20px 12px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.logo-area{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.logo{
-  width:48px;
-  height:48px;
-  border-radius:15px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-  font-size:20px;
-  background:linear-gradient(135deg,#9b5cff,#4c8dff);
-  box-shadow:0 0 25px #754cff66;
-}
-
-.brand{
-  font-size:19px;
-  font-weight:bold;
-}
-
-.subtitle{
-  font-size:12px;
-  color:#aaa3c8;
-  margin-top:3px;
-}
-
-.online{
-  font-size:11px;
-  color:#73e6a5;
-  background:#143b2a;
-  padding:7px 10px;
-  border-radius:20px;
-}
-
-.user-menu{
-  margin-top:12px;
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.user-email{
-  font-size:11px;
-  color:#9d96b8;
-  max-width:160px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-
-.logout-btn{
-  border:0;
-  background:#ffffff09;
-  color:#aaa3c8;
-  padding:6px 9px;
-  border-radius:10px;
-  cursor:pointer;
-}
-
-main{
-  flex:1;
-  padding:10px 18px 110px;
-}
-
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
-
-.hero{
-  margin-top:10px;
-  padding:22px;
-  border-radius:25px;
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.09);
-  backdrop-filter:blur(15px);
-}
-
-.hero h1{
-  font-size:25px;
-  margin-bottom:8px;
-}
-
-.hero p{
-  color:#aaa3c8;
-  font-size:14px;
-  line-height:1.5;
-}
-
-.card{
-  margin-top:15px;
-  padding:18px;
-  border-radius:20px;
-  background:rgba(255,255,255,.055);
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.card-title{
-  font-weight:bold;
-  margin-bottom:12px;
-}
-
-.chat{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  margin-top:15px;
-}
-
-.message{
-  max-width:88%;
-  padding:13px 15px;
-  border-radius:18px;
-  font-size:14px;
-  line-height:1.5;
-  white-space:pre-wrap;
-}
-
-.user{
-  align-self:flex-end;
-  background:linear-gradient(135deg,#744cff,#5141bd);
-}
-
-.bot{
-  align-self:flex-start;
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.searching{
-  align-self:flex-start;
-  color:#b9a9ff;
-  font-size:13px;
-  animation:pulse 1.2s infinite;
-}
-
-@keyframes pulse{
-  50%{opacity:.4}
-}
-
-/* =========================
-   COMPOSER
-========================= */
-
-.composer{
-  position:fixed;
-  bottom:70px;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(560px,calc(100% - 30px));
-  display:flex;
-  gap:7px;
-  padding:8px;
-  border-radius:20px;
-  background:rgba(20,14,45,.94);
-  border:1px solid #ffffff16;
-  backdrop-filter:blur(20px);
-  z-index:20;
-}
-
-.composer input{
-  flex:1;
-  border:0;
-  outline:0;
-  background:transparent;
-  color:white;
-  padding:12px;
-  font-size:14px;
-}
-
-.composer input::placeholder{
-  color:#77718e;
-}
-
-.attach{
-  width:44px;
-  height:44px;
-  border:0;
-  border-radius:14px;
-  color:white;
-  font-size:21px;
-  background:rgba(255,255,255,.08);
-  cursor:pointer;
-}
-
-.send{
-  width:44px;
-  height:44px;
-  border:0;
-  border-radius:14px;
-  color:white;
-  font-size:20px;
-  background:linear-gradient(135deg,#8d55ff,#516eff);
-  cursor:pointer;
-}
-
-/* =========================
-   ATTACH MENU
-========================= */
-
-.attach-menu{
-  position:fixed;
-  bottom:130px;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(330px,calc(100% - 40px));
-  padding:12px;
-  border-radius:22px;
-  background:rgba(20,14,45,.98);
-  border:1px solid #ffffff15;
-  backdrop-filter:blur(25px);
-  box-shadow:0 20px 50px rgba(0,0,0,.45);
-  z-index:30;
-}
-
-.attach-option{
-  width:100%;
-  border:0;
-  background:transparent;
-  color:white;
-  text-align:left;
-  padding:14px;
-  border-radius:14px;
-  cursor:pointer;
-}
-
-.attach-option:hover{
-  background:#ffffff09;
-}
-
-/* =========================
-   NAV
-========================= */
-
-.nav{
-  position:fixed;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(600px,100%);
-  height:65px;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  background:rgba(10,7,24,.96);
-  border-top:1px solid #ffffff12;
-  z-index:20;
-}
-
-.nav button{
-  border:0;
-  background:none;
-  color:#77718e;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:4px;
-  font-size:10px;
-  cursor:pointer;
-  min-width:55px;
-}
-
-.nav button.active{
-  color:#a77aff;
-}
-
-.icon{
-  font-size:20px;
-}
-
-/* =========================
-   LISTAS
-========================= */
-
-.item{
-  padding:12px;
-  margin-bottom:8px;
-  border-radius:14px;
-  background:#ffffff08;
-}
-
-.empty{
-  color:#77718e;
-  font-size:13px;
-}
-
-.sources{
-  margin-top:12px;
-  padding-top:10px;
-  border-top:1px solid #ffffff12;
-}
-
-.sources-title{
-  font-size:11px;
-  color:#9f96ba;
-  margin-bottom:8px;
-}
-
-.source{
-  display:block;
-  text-decoration:none;
-  color:#b695ff;
-  font-size:12px;
-  padding:7px 0;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-
-h2{
-  font-size:21px;
-  margin:8px 0 15px;
-}
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LifePilote</title>
+  <meta name="theme-color" content="#090b18">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *{box-sizing:border-box}
+    :root{
+      --bg:#070914;--panel:#0e1224;--panel2:#12172d;--line:rgba(255,255,255,.09);
+      --text:#f7f7ff;--muted:#9da4c4;--purple:#8b5cf6;--blue:#4f7cff;
+      --good:#35d49a;--danger:#ff617d;--shadow:0 20px 70px rgba(0,0,0,.35)
+    }
+    body{margin:0;background:radial-gradient(circle at 20% 0%,#1c1641 0,#0b0d1c 38%,var(--bg) 70%);
+      color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    .hidden{display:none!important}
+    .auth-wrap{min-height:100vh;display:grid;place-items:center;padding:22px}
+    .auth-card{width:min(440px,100%);padding:30px;border:1px solid var(--line);border-radius:28px;
+      background:rgba(14,18,36,.82);backdrop-filter:blur(22px);box-shadow:var(--shadow)}
+    .logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:24px}
+    .logo-mark{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--purple),var(--blue));box-shadow:0 8px 30px rgba(123,92,246,.4);font-size:22px}
+    .auth-card h1{font-size:28px;margin:26px 0 8px}.sub{color:var(--muted);margin:0 0 22px}
+    .field{margin:13px 0}.field label{display:block;font-size:13px;color:var(--muted);margin:0 0 7px}
+    .field input{width:100%;padding:14px 15px;border-radius:14px;border:1px solid var(--line);
+      background:#090d1b;color:var(--text);outline:none}
+    .field input:focus{border-color:rgba(139,92,246,.8);box-shadow:0 0 0 3px rgba(139,92,246,.12)}
+    .primary,.google{width:100%;border:0;border-radius:14px;padding:14px 16px;font-weight:750;margin-top:8px}
+    .primary{color:white;background:linear-gradient(135deg,var(--purple),var(--blue))}
+    .google{background:#fff;color:#161616}.google span{margin-right:8px;font-weight:900}
+    .switch{text-align:center;color:var(--muted);margin:18px 0 0;font-size:14px}.switch button{
+      background:none;border:0;color:#bca8ff;font-weight:700;padding:0}
+    .auth-msg{margin-top:14px;padding:12px;border-radius:12px;font-size:13px;line-height:1.4;background:#161b31}
+    .auth-msg.error{color:#ffb0bc;border:1px solid rgba(255,97,125,.25)}
+    .auth-msg.success{color:#9ff0cf;border:1px solid rgba(53,212,154,.25)}
+    .app{min-height:100vh;padding-bottom:86px}
+    .topbar{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;
+      border-bottom:1px solid var(--line);background:rgba(7,9,20,.68);backdrop-filter:blur(18px);position:sticky;top:0;z-index:20}
+    .user-area{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px}
+    .avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;font-weight:800}
+    .logout{border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--muted);border-radius:10px;padding:8px 10px}
+    .pages{max-width:1050px;margin:auto;padding:20px}
+    .page{display:none}.page.active{display:block}
+    .hero{padding:24px 4px 16px}.hero h2{margin:0 0 6px;font-size:30px}.hero p{margin:0;color:var(--muted)}
+    .glass{border:1px solid var(--line);background:rgba(14,18,36,.75);backdrop-filter:blur(18px);border-radius:22px;box-shadow:var(--shadow)}
+    .chat-card{min-height:calc(100vh - 205px);display:flex;flex-direction:column;overflow:hidden}
+    .chat{flex:1;padding:18px;overflow:auto;display:flex;flex-direction:column;gap:12px}
+    .msg{max-width:84%;padding:13px 15px;border-radius:17px;line-height:1.5;white-space:pre-wrap}
+    .msg.user{align-self:flex-end;background:linear-gradient(135deg,#6743c8,#315bd2)}
+    .msg.ai{align-self:flex-start;background:#171c34;border:1px solid var(--line)}
+    .typing{color:#bca8ff;font-size:13px;padding:0 18px 10px}
+    .composer{display:flex;gap:9px;padding:12px;border-top:1px solid var(--line);position:relative}
+    .composer input{flex:1;border:1px solid var(--line);background:#090d1b;color:#fff;border-radius:15px;padding:13px 14px;outline:none}
+    .icon-btn,.send{border:0;border-radius:14px;width:46px;min-width:46px}
+    .icon-btn{background:#171c34;color:#d9d1ff;font-size:21px}.send{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;font-weight:800}
+    .attach-menu{position:absolute;bottom:68px;left:12px;background:#12172d;border:1px solid var(--line);border-radius:17px;padding:8px;display:grid;gap:5px;width:205px;box-shadow:var(--shadow)}
+    .attach-menu button{border:0;background:transparent;color:#fff;text-align:left;padding:11px;border-radius:10px}.attach-menu button:hover{background:rgba(255,255,255,.06)}
+    .source{margin-top:10px;padding:10px 12px;border-radius:12px;background:#10152a;border:1px solid var(--line);font-size:12px}
+    .source a{color:#bca8ff;text-decoration:none}
+    .searching{display:inline-flex;gap:8px;align-items:center}.dots{letter-spacing:2px;animation:blink 1s infinite}@keyframes blink{50%{opacity:.25}}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{padding:20px}
+    .card h3{margin:0 0 7px}.card p{color:var(--muted);margin:0;line-height:1.45}
+    .list{display:grid;gap:10px;margin-top:15px}.item{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.025)}
+    .check{width:22px;height:22px;border-radius:7px;border:1px solid #69708e;background:transparent;display:grid;place-items:center;color:#fff;flex:none}
+    .check.done{background:var(--good);border-color:var(--good);color:#062218}
+    .item-main{flex:1}.item-main small{display:block;color:var(--muted);margin-top:4px}
+    .add-row{display:flex;gap:8px;margin-top:15px}.add-row input{flex:1}
+    .add-row input{padding:12px;border-radius:13px;border:1px solid var(--line);background:#090d1b;color:#fff}
+    .add-row button{border:0;border-radius:13px;padding:0 16px;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;font-weight:750}
+    .bottom{position:fixed;bottom:0;left:0;right:0;height:76px;display:flex;justify-content:center;z-index:30;
+      background:rgba(7,9,20,.88);border-top:1px solid var(--line);backdrop-filter:blur(20px)}
+    .nav{width:min(760px,100%);display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:7px 10px}
+    .nav button{border:0;background:transparent;color:#747c9d;border-radius:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+    .nav button.active{color:#fff;background:linear-gradient(135deg,rgba(139,92,246,.22),rgba(79,124,255,.18))}
+    .nav .ico{font-size:20px}.nav small{font-size:10px}
+    .empty{color:var(--muted);text-align:center;padding:30px 10px}
+    @media(max-width:700px){.grid{grid-template-columns:1fr}.pages{padding:15px}.hero h2{font-size:25px}.msg{max-width:91%}}
+  </style>
 </head>
-
 <body>
 
-<!-- =========================
-     LOGIN
-========================= -->
+  <section id="authScreen" class="auth-wrap">
+    <div class="auth-card">
+      <div class="logo"><div class="logo-mark">✦</div><div>LifePilote</div></div>
+      <h1 id="authTitle">Bem-vindo ao LifePilote</h1>
+      <p id="authSubtitle" class="sub">Seu copiloto pessoal inteligente.</p>
 
-<div id="authScreen">
+      <button id="googleBtn" class="google" type="button"><span>G</span> Continuar com o Google</button>
 
-  <div class="auth-card">
-
-    <div class="auth-logo">LP</div>
-
-    <h1 class="auth-title" id="authTitle">
-      Bem-vindo ao LifePilote
-    </h1>
-
-    <p class="auth-subtitle" id="authSubtitle">
-      Seu copiloto pessoal inteligente.
-    </p>
-
-    <input
-      id="authEmail"
-      class="auth-input"
-      type="email"
-      placeholder="Seu e-mail"
-      autocomplete="email"
-    >
-
-    <input
-      id="authPassword"
-      class="auth-input"
-      type="password"
-      placeholder="Sua senha"
-      autocomplete="current-password"
-    >
-
-    <button
-      id="emailAuthButton"
-      class="auth-btn"
-      onclick="handleEmailAuth()"
-    >
-      Entrar
-    </button>
-
-    <div class="auth-divider">
-      ou
-    </div>
-
-    <button
-      class="google-btn"
-      onclick="signInWithGoogle()"
-    >
-      🔵 Continuar com Google
-    </button>
-
-    <div id="authMessage"></div>
-
-    <div class="auth-switch">
-
-      <span id="authSwitchText">
-        Ainda não tem uma conta?
-      </span>
-
-      <button onclick="toggleAuthMode()">
-        <span id="authSwitchButton">
-          Criar conta
-        </span>
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- =========================
-     APP
-========================= -->
-
-<div
-  class="app hidden"
-  id="app"
->
-
-<header>
-
-  <div>
-
-    <div class="logo-area">
-
-      <div class="logo">
-        LP
+      <div style="display:flex;align-items:center;gap:10px;color:#69708e;margin:18px 0;font-size:12px">
+        <div style="height:1px;background:var(--line);flex:1"></div> ou <div style="height:1px;background:var(--line);flex:1"></div>
       </div>
 
-      <div>
-
-        <div class="brand">
-          LifePilote
-        </div>
-
-        <div class="subtitle">
-          Seu copiloto pessoal
-        </div>
-
+      <div class="field">
+        <label for="authEmail">E-mail</label>
+        <input id="authEmail" type="email" autocomplete="email" placeholder="seuemail@exemplo.com">
+      </div>
+      <div class="field">
+        <label for="authPassword">Senha</label>
+        <input id="authPassword" type="password" autocomplete="current-password" placeholder="Sua senha">
       </div>
 
+      <button id="emailAuthBtn" class="primary" type="button">Entrar</button>
+
+      <div id="authMessage" class="auth-msg hidden"></div>
+
+      <div class="switch">
+        <span id="authSwitchText">Ainda não tem uma conta?</span>
+        <button id="authSwitchButton" type="button">Criar conta</button>
+      </div>
     </div>
-
-    <div class="user-menu">
-
-      <span
-        id="userEmail"
-        class="user-email"
-      ></span>
-
-      <button
-        class="logout-btn"
-        onclick="logout()"
-      >
-        Sair
-      </button>
-
-    </div>
-
-  </div>
-
-  <div class="online">
-    ● Online
-  </div>
-
-</header>
-
-
-<main>
-
-<!-- INÍCIO -->
-
-<section
-  id="home"
-  class="page active"
->
-
-  <div class="hero">
-
-    <h1>
-      Olá 👋
-    </h1>
-
-    <p>
-      Estou pronto para ajudar você a organizar sua vida,
-      pesquisar informações e cuidar dos seus objetivos.
-    </p>
-
-  </div>
-
-  <div class="card">
-
-    <div class="card-title">
-      ✨ O que posso fazer?
-    </div>
-
-    <p class="empty">
-      Pesquisar na web, criar tarefas, organizar compromissos,
-      acompanhar objetivos e conversar com você.
-    </p>
-
-  </div>
-
-</section>
-
-
-<!-- AGENDA -->
-
-<section
-  id="agenda"
-  class="page"
->
-
-  <h2>
-    📅 Agenda
-  </h2>
-
-  <div id="eventsList"></div>
-
-</section>
-
-
-<!-- TAREFAS -->
-
-<section
-  id="tasks"
-  class="page"
->
-
-  <h2>
-    ✅ Tarefas
-  </h2>
-
-  <div id="tasksList"></div>
-
-</section>
-
-
-<!-- OBJETIVOS -->
-
-<section
-  id="goals"
-  class="page"
->
-
-  <h2>
-    🎯 Objetivos
-  </h2>
-
-  <div id="goalsList"></div>
-
-</section>
-
-
-<!-- IA -->
-
-<section
-  id="ia"
-  class="page"
->
-
-  <h2>
-    🤖 LifePilote IA
-  </h2>
-
-  <div
-    id="chat"
-    class="chat"
-  ></div>
-
-</section>
-
-</main>
-
-
-<!-- COMPOSER -->
-
-<div class="composer">
-
-  <button
-    class="attach"
-    onclick="toggleAttachMenu()"
-  >
-    ✦
-  </button>
-
-  <input
-    id="message"
-    type="text"
-    placeholder="Fale com o LifePilote..."
-    autocomplete="off"
-  >
-
-  <button
-    class="send"
-    onclick="sendMessage()"
-  >
-    ➤
-  </button>
-
-</div>
-
-
-<!-- MENU DE ANEXOS -->
-
-<div
-  id="attachMenu"
-  class="attach-menu hidden"
->
-
-  <button
-    class="attach-option"
-    onclick="chooseFile()"
-  >
-    📎 Anexar arquivo
-  </button>
-
-  <button
-    class="attach-option"
-    onclick="openCamera()"
-  >
-    📷 Tirar foto
-  </button>
-
-  <button
-    class="attach-option"
-    onclick="openGallery()"
-  >
-    🖼️ Galeria
-  </button>
-
-  <button
-    class="attach-option"
-    onclick="openCamera()"
-  >
-    📸 Usar câmera
-  </button>
-
-</div>
-
-
-<!-- INPUTS OCULTOS -->
-
-<input
-  id="fileInput"
-  type="file"
-  hidden
->
-
-<input
-  id="cameraInput"
-  type="file"
-  accept="image/*"
-  capture="environment"
-  hidden
->
-
-
-<!-- NAV -->
-
-<nav class="nav">
-
-  <button
-    class="active"
-    onclick="showPage('home',this)"
-  >
-
-    <span class="icon">
-      ⌂
-    </span>
-
-    Início
-
-  </button>
-
-
-  <button
-    onclick="showPage('agenda',this)"
-  >
-
-    <span class="icon">
-      ▣
-    </span>
-
-    Agenda
-
-  </button>
-
-
-  <button
-    onclick="showPage('tasks',this)"
-  >
-
-    <span class="icon">
-      ✓
-    </span>
-
-    Tarefas
-
-  </button>
-
-
-  <button
-    onclick="showPage('goals',this)"
-  >
-
-    <span class="icon">
-      ◈
-    </span>
-
-    Objetivos
-
-  </button>
-
-
-  <button
-    onclick="showPage('ia',this)"
-  >
-
-    <span class="icon">
-      ✦
-    </span>
-
-    IA
-
-  </button>
-
-</nav>
-
-</div>
-
-
-<!-- SUPABASE -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  </section>
+
+  <section id="appScreen" class="app hidden">
+    <header class="topbar">
+      <div class="logo"><div class="logo-mark">✦</div><div>LifePilote</div></div>
+      <div class="user-area">
+        <div id="avatar" class="avatar">L</div>
+        <span id="userEmail"></span>
+        <button id="logoutBtn" class="logout" type="button">Sair</button>
+      </div>
+    </header>
+
+    <main class="pages">
+      <section id="homePage" class="page active">
+        <div class="hero"><h2>Seu copiloto pessoal ✨</h2><p>Converse com a IA, pesquise na web e organize sua vida.</p></div>
+        <div class="chat-card glass">
+          <div id="chat" class="chat">
+            <div class="msg ai">Olá! Eu sou o LifePilote. Como posso ajudar você hoje?</div>
+          </div>
+          <div id="typing" class="typing hidden"><span class="searching">Buscando e preparando resposta<span class="dots">...</span></span></div>
+          <div class="composer">
+            <div id="attachMenu" class="attach-menu hidden">
+              <button type="button" onclick="chooseFile()">📎 Anexar arquivo</button>
+              <button type="button" onclick="takePhoto()">📷 Tirar foto</button>
+              <button type="button" onclick="chooseGallery()">🖼️ Galeria</button>
+              <button type="button" onclick="takePhoto()">✨ Usar câmera</button>
+            </div>
+            <button id="attachBtn" class="icon-btn" type="button" title="Anexar">✦</button>
+            <input id="message" type="text" placeholder="Converse com o LifePilote..." autocomplete="off">
+            <button id="sendBtn" class="send" type="button">➤</button>
+            <input id="fileInput" type="file" class="hidden" accept="image/*,.pdf,.txt,.doc,.docx,.xls,.xlsx">
+            <input id="cameraInput" type="file" class="hidden" accept="image/*" capture="environment">
+          </div>
+        </div>
+      </section>
+
+      <section id="agendaPage" class="page">
+        <div class="hero"><h2>Agenda 📅</h2><p>Seus próximos compromissos.</p></div>
+        <div class="glass card">
+          <div id="eventsList" class="list"><div class="empty">Nenhum compromisso ainda.</div></div>
+          <div class="add-row"><input id="eventTitle" placeholder="Ex.: Consulta amanhã às 14h"><button type="button" onclick="createEventFromUI()">Adicionar</button></div>
+        </div>
+      </section>
+
+      <section id="tasksPage" class="page">
+        <div class="hero"><h2>Tarefas ✅</h2><p>Organize o que precisa ser feito.</p></div>
+        <div class="glass card">
+          <div id="tasksList" class="list"><div class="empty">Nenhuma tarefa ainda.</div></div>
+          <div class="add-row"><input id="taskText" placeholder="Nova tarefa"><button type="button" onclick="createTaskFromUI()">Adicionar</button></div>
+        </div>
+      </section>
+
+      <section id="goalsPage" class="page">
+        <div class="hero"><h2>Objetivos 🎯</h2><p>Acompanhe seus objetivos.</p></div>
+        <div class="glass card">
+          <div id="goalsList" class="list"><div class="empty">Nenhum objetivo ainda.</div></div>
+          <div class="add-row"><input id="goalText" placeholder="Novo objetivo"><button type="button" onclick="createGoalFromUI()">Adicionar</button></div>
+        </div>
+      </section>
+
+      <section id="iaPage" class="page">
+        <div class="hero"><h2>IA ✨</h2><p>Recursos do seu assistente.</p></div>
+        <div class="grid">
+          <div class="glass card"><h3>🌐 Web</h3><p>Quando necessário, o LifePilote pode pesquisar informações atuais.</p></div>
+          <div class="glass card"><h3>🧠 Conversa</h3><p>Faça perguntas, peça ideias, explicações e ajuda para suas decisões.</p></div>
+          <div class="glass card"><h3>⚡ Organização</h3><p>Crie tarefas, compromissos e objetivos usando a conversa ou as telas.</p></div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom">
+      <div class="nav">
+        <button type="button" data-page="home" class="active"><span class="ico">⌂</span><small>Início</small></button>
+        <button type="button" data-page="agenda"><span class="ico">◫</span><small>Agenda</small></button>
+        <button type="button" data-page="tasks"><span class="ico">✓</span><small>Tarefas</small></button>
+        <button type="button" data-page="goals"><span class="ico">◎</span><small>Objetivos</small></button>
+        <button type="button" data-page="ia"><span class="ico">✦</span><small>IA</small></button>
+      </div>
+    </nav>
+  </section>
 
 <script>
+/* =========================================================
+   CONFIGURAÇÃO — COLOQUE SOMENTE ESTES DOIS VALORES
+   ========================================================= */
+const SUPABASE_URL = "COLE_AQUI_SUA_PROJECT_URL";
+const SUPABASE_PUBLISHABLE_KEY = "COLE_AQUI_SUA_PUBLISHABLE_KEY";
 
-/* ==================================
-   CONFIGURAÇÃO SUPABASE
-================================== */
-
-const SUPABASE_URL = ".   https://fowntjokvsavynurrgcx.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_JJSRFR9rWNTilRQkouUSNQ_9xE-hA3u";
-
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
-
-
-/* ==================================
-   VARIÁVEIS
-================================== */
-
+let supabaseClient = null;
 let authMode = "login";
+let currentUser = null;
+let appState = {tasks:[], events:[], goals:[]};
 
-const chat =
-  document.getElementById("chat");
+function el(id){ return document.getElementById(id); }
 
-const messageInput =
-  document.getElementById("message");
-
-
-/* ==================================
-   LOGIN / CADASTRO
-================================== */
-
-function toggleAuthMode(){
-
-  authMode =
-    authMode === "login"
-      ? "signup"
-      : "login";
-
-  const title =
-    document.getElementById("authTitle");
-
-  const subtitle =
-    document.getElementById("authSubtitle");
-
-  const button =
-    document.getElementById("emailAuthButton");
-
-  const switchText =
-    document.getElementById("authSwitchText");
-
-  const switchButton =
-    document.getElementById("authSwitchButton");
-
-
-  if(authMode === "signup"){
-
-    title.textContent =
-      "Crie sua conta";
-
-    subtitle.textContent =
-      "Comece a usar seu copiloto pessoal.";
-
-    button.textContent =
-      "Criar conta";
-
-    switchText.textContent =
-      "Já tem uma conta?";
-
-    switchButton.textContent =
-      "Entrar";
-
-  }else{
-
-    title.textContent =
-      "Bem-vindo ao LifePilote";
-
-    subtitle.textContent =
-      "Seu copiloto pessoal inteligente.";
-
-    button.textContent =
-      "Entrar";
-
-    switchText.textContent =
-      "Ainda não tem uma conta?";
-
-    switchButton.textContent =
-      "Criar conta";
-
-  }
-
-  clearAuthMessage();
+function showAuthMessage(text, success=false){
+  const box = el("authMessage");
+  box.textContent = text;
+  box.className = "auth-msg " + (success ? "success" : "error");
 }
-
-
-/* ==================================
-   MENSAGEM AUTH
-================================== */
-
-function showAuthMessage(
-  text,
-  success=false
-){
-
-  const box =
-    document.getElementById(
-      "authMessage"
-    );
-
-  box.className =
-    success
-      ? "auth-success"
-      : "auth-error";
-
-  box.textContent =
-    text;
-}
-
-
 function clearAuthMessage(){
-
-  const box =
-    document.getElementById(
-      "authMessage"
-    );
-
-  box.className = "";
-
-  box.textContent = "";
-
+  el("authMessage").className = "auth-msg hidden";
+  el("authMessage").textContent = "";
 }
 
-
-/* ==================================
-   EMAIL / SENHA
-================================== */
-
-async function handleEmailAuth() {
+function setAuthMode(mode){
+  authMode = mode;
   clearAuthMessage();
+  if(mode === "signup"){
+    el("authTitle").textContent = "Crie sua conta";
+    el("authSubtitle").textContent = "Comece a usar seu copiloto pessoal.";
+    el("emailAuthBtn").textContent = "Criar conta";
+    el("authSwitchText").textContent = "Já tem uma conta?";
+    el("authSwitchButton").textContent = "Entrar";
+  }else{
+    el("authTitle").textContent = "Bem-vindo ao LifePilote";
+    el("authSubtitle").textContent = "Seu copiloto pessoal inteligente.";
+    el("emailAuthBtn").textContent = "Entrar";
+    el("authSwitchText").textContent = "Ainda não tem uma conta?";
+    el("authSwitchButton").textContent = "Criar conta";
+  }
+}
 
-  const email = document.getElementById("authEmail").value.trim();
-  const password = document.getElementById("authPassword").value;
+async function handleEmailAuth(){
+  clearAuthMessage();
+  const email = el("authEmail").value.trim();
+  const password = el("authPassword").value;
 
-  if (!email || !password) {
+  if(!email || !password){
     showAuthMessage("Preencha seu e-mail e sua senha.");
     return;
   }
+  if(password.length < 6){
+    showAuthMessage("A senha precisa ter pelo menos 6 caracteres.");
+    return;
+  }
+  if(!supabaseClient){
+    showAuthMessage("Supabase não foi configurado corretamente.");
+    return;
+  }
 
-  try {
-    if (authMode === "signup") {
+  const btn = el("emailAuthBtn");
+  btn.disabled = true;
+  btn.textContent = "Aguarde...";
 
-      const { data, error } =
-        await supabaseClient.auth.signUp({
-          email: email,
-          password: password
-        });
+  try{
+    if(authMode === "signup"){
+      const {data,error} = await supabaseClient.auth.signUp({email,password});
+      if(error) throw error;
 
-      if (error) {
-        showAuthMessage(error.message);
-        return;
-      }
-
-      if (data.session) {
+      if(data.session){
         showApp(data.user);
-      } else {
-        showAuthMessage(
-          "Conta criada! Verifique seu e-mail para confirmar a conta.",
-          true
-        );
+      }else{
+        showAuthMessage("Conta criada! Verifique seu e-mail para confirmar a conta.", true);
       }
-
-    } else {
-
-      const { data, error } =
-        await supabaseClient.auth.signInWithPassword({
-          email: email,
-          password: password
-        });
-
-      if (error) {
-        showAuthMessage(error.message);
-        return;
-      }
-
-      if (data.session) {
-        showApp(data.user);
-      }
-
+    }else{
+      const {data,error} = await supabaseClient.auth.signInWithPassword({email,password});
+      if(error) throw error;
+      if(data.session) showApp(data.user);
     }
-
-  } catch (error) {
-    console.error("ERRO DE AUTENTICAÇÃO:", error);
-
-    showAuthMessage(
-      "Não foi possível conectar ao sistema de login. Tente novamente."
-    );
+  }catch(error){
+    console.error(error);
+    showAuthMessage(error?.message || "Não foi possível entrar. Tente novamente.");
+  }finally{
+    btn.disabled = false;
+    btn.textContent = authMode === "signup" ? "Criar conta" : "Entrar";
   }
 }
-
-
-/* ==================================
-   GOOGLE
-================================== */
 
 async function signInWithGoogle(){
-
   clearAuthMessage();
-
-  const {
-    error
-  } =
-    await supabaseClient.auth.signInWithOAuth({
-
-      provider:"google",
-
-      options:{
-        redirectTo:
-          window.location.origin
-      }
-
-    });
-
-
-  if(error){
-
-    showAuthMessage(
-      error.message
-    );
-
+  if(!supabaseClient){
+    showAuthMessage("Supabase não foi configurado corretamente.");
+    return;
   }
 
+  const btn = el("googleBtn");
+  btn.disabled = true;
+  btn.textContent = "Abrindo Google...";
+
+  try{
+    const {error} = await supabaseClient.auth.signInWithOAuth({
+      provider:"google",
+      options:{
+        redirectTo: window.location.origin
+      }
+    });
+    if(error) throw error;
+  }catch(error){
+    console.error(error);
+    showAuthMessage(error?.message || "Não foi possível iniciar o Google.");
+    btn.disabled = false;
+    btn.innerHTML = "<span>G</span> Continuar com o Google";
+  }
 }
-
-
-/* ==================================
-   LOGOUT
-================================== */
 
 async function logout(){
-
-  await supabaseClient.auth.signOut();
-
-  document
-    .getElementById("app")
-    .classList.add("hidden");
-
-  document
-    .getElementById("authScreen")
-    .classList.remove("hidden");
-
+  if(supabaseClient) await supabaseClient.auth.signOut();
+  currentUser = null;
+  el("appScreen").classList.add("hidden");
+  el("authScreen").classList.remove("hidden");
+  el("authEmail").value = "";
+  el("authPassword").value = "";
+  setAuthMode("login");
 }
-
-
-/* ==================================
-   MOSTRAR APP
-================================== */
 
 function showApp(user){
-
-  document
-    .getElementById("authScreen")
-    .classList.add("hidden");
-
-  document
-    .getElementById("app")
-    .classList.remove("hidden");
-
-
-  const email =
-    document.getElementById(
-      "userEmail"
-    );
-
-
-  email.textContent =
-    user?.email || "";
-
-
+  currentUser = user;
+  el("authScreen").classList.add("hidden");
+  el("appScreen").classList.remove("hidden");
+  const email = user?.email || "Usuário";
+  el("userEmail").textContent = email;
+  el("avatar").textContent = email.charAt(0).toUpperCase();
   loadState();
-
 }
 
-
-/* ==================================
-   VERIFICAR SESSÃO
-================================== */
-
-async function checkSession(){
-
-  const {
-    data
-  } =
-    await supabaseClient.auth.getSession();
-
-
-  if(data.session){
-
-    showApp(
-      data.session.user
-    );
-
+async function getAuthHeaders(){
+  const headers = {"Content-Type":"application/json"};
+  if(supabaseClient){
+    const {data} = await supabaseClient.auth.getSession();
+    const token = data?.session?.access_token;
+    if(token) headers.Authorization = "Bearer " + token;
   }
-
+  return headers;
 }
-
-
-/* ==================================
-   ALTERAÇÃO DE LOGIN
-================================== */
-
-supabaseClient.auth.onAuthStateChange(
-  (event, session) => {
-
-    if(session){
-
-      showApp(
-        session.user
-      );
-
-    }
-
-  }
-);
-
-
-/* ==================================
-   NAVEGAÇÃO
-================================== */
-
-function showPage(
-  page,
-  button
-){
-
-  document
-    .querySelectorAll(".page")
-    .forEach(
-      p =>
-        p.classList.remove(
-          "active"
-        )
-    );
-
-
-  document
-    .getElementById(page)
-    .classList.add("active");
-
-
-  document
-    .querySelectorAll(".nav button")
-    .forEach(
-      b =>
-        b.classList.remove(
-          "active"
-        )
-    );
-
-
-  button.classList.add("active");
-
-}
-
-
-/* ==================================
-   CHAT
-================================== */
-
-function addMessage(
-  text,
-  type="bot"
-){
-
-  const div =
-    document.createElement(
-      "div"
-    );
-
-  div.className =
-    "message " + type;
-
-  div.textContent =
-    text;
-
-  chat.appendChild(div);
-
-  chat.scrollTop =
-    chat.scrollHeight;
-
-  return div;
-
-}
-
-
-/* ==================================
-   BUSCANDO
-================================== */
-
-function addSearching(){
-
-  const div =
-    document.createElement(
-      "div"
-    );
-
-  div.className =
-    "searching";
-
-  div.textContent =
-    "🌐 Buscando na web...";
-
-  chat.appendChild(div);
-
-  chat.scrollTop =
-    chat.scrollHeight;
-
-  return div;
-
-}
-
-
-/* ==================================
-   FONTES
-================================== */
-
-function addSources(
-  sources
-){
-
-  if(
-    !sources ||
-    !sources.length
-  ) return;
-
-
-  const box =
-    document.createElement(
-      "div"
-    );
-
-  box.className =
-    "sources";
-
-
-  const title =
-    document.createElement(
-      "div"
-    );
-
-  title.className =
-    "sources-title";
-
-  title.textContent =
-    "🔎 Fontes consultadas";
-
-
-  box.appendChild(title);
-
-
-  sources.forEach(
-    source => {
-
-      const link =
-        document.createElement(
-          "a"
-        );
-
-      link.className =
-        "source";
-
-      link.href =
-        source.url;
-
-      link.target =
-        "_blank";
-
-      link.rel =
-        "noopener noreferrer";
-
-      link.textContent =
-        "↗ " +
-        (
-          source.title ||
-          source.url
-        );
-
-
-      box.appendChild(link);
-
-    }
-  );
-
-
-  const lastMessage =
-    chat.lastElementChild;
-
-
-  if(lastMessage){
-
-    lastMessage.appendChild(
-      box
-    );
-
-  }
-
-}
-
-
-/* ==================================
-   ENVIAR MENSAGEM
-================================== */
 
 async function sendMessage(){
-
-  const text =
-    messageInput.value.trim();
-
-
+  const input = el("message");
+  const text = input.value.trim();
   if(!text) return;
 
-
-  showPage(
-    "ia",
-    document.querySelectorAll(
-      ".nav button"
-    )[4]
-  );
-
-
-  addMessage(
-    text,
-    "user"
-  );
-
-
-  messageInput.value = "";
-
-
-  const searching =
-    addSearching();
-
+  addMessage(text,"user");
+  input.value = "";
+  el("typing").classList.remove("hidden");
 
   try{
+    const headers = await getAuthHeaders();
+    const response = await fetch("/api/chat",{
+      method:"POST",headers,
+      body:JSON.stringify({message:text})
+    });
+    const data = await response.json();
 
-    const response =
-      await fetch(
-        "/api/chat",
-        {
+    if(!response.ok) throw new Error(data?.error || "Falha ao falar com a IA.");
 
-          method:"POST",
+    addMessage(data.reply || "Não consegui gerar uma resposta.","ai");
 
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-
-          body:
-            JSON.stringify({
-              message:text
-            })
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    searching.remove();
-
-
-    if(!response.ok){
-
-      addMessage(
-        data.error ||
-        "Não consegui falar com a IA."
-      );
-
-      return;
-
+    if(data.usedWebSearch && Array.isArray(data.sources) && data.sources.length){
+      const wrap = document.createElement("div");
+      wrap.className = "source";
+      wrap.innerHTML = "<strong>Fontes consultadas</strong>";
+      data.sources.slice(0,6).forEach(s=>{
+        const d=document.createElement("div");
+        d.style.marginTop="7px";
+        const a=document.createElement("a");
+        a.href=s.url;a.target="_blank";a.rel="noopener noreferrer";a.textContent=s.title || s.url;
+        d.appendChild(a);wrap.appendChild(d);
+      });
+      el("chat").appendChild(wrap);
+      el("chat").scrollTop=el("chat").scrollHeight;
     }
-
-
-    addMessage(
-      data.reply ||
-      "Sem resposta."
-    );
-
-
-    if(data.usedWebSearch){
-
-      addSources(
-        data.sources
-      );
-
-    }
-
 
     if(data.state){
-
-      renderState(
-        data.state
-      );
-
+      appState=data.state;
+      renderState();
     }
-
-
   }catch(error){
-
-    searching.remove();
-
-    addMessage(
-      "⚠️ Não consegui conectar ao LifePilote."
-    );
-
     console.error(error);
-
+    addMessage("Não consegui conectar ao LifePilote agora. Tente novamente.","ai");
+  }finally{
+    el("typing").classList.add("hidden");
   }
-
 }
 
-
-/* ==================================
-   ENTER
-================================== */
-
-messageInput.addEventListener(
-  "keydown",
-  event => {
-
-    if(event.key === "Enter"){
-
-      sendMessage();
-
-    }
-
-  }
-);
-
-
-/* ==================================
-   ESTADO
-================================== */
-
-function renderState(
-  state
-){
-
-  const events =
-    document.getElementById(
-      "eventsList"
-    );
-
-  const tasks =
-    document.getElementById(
-      "tasksList"
-    );
-
-  const goals =
-    document.getElementById(
-      "goalsList"
-    );
-
-
-  events.innerHTML = "";
-
-  tasks.innerHTML = "";
-
-  goals.innerHTML = "";
-
-
-  if(!state.events.length){
-
-    events.innerHTML =
-      '<div class="empty">Nenhum compromisso ainda.</div>';
-
-  }else{
-
-    state.events.forEach(
-      event => {
-
-        const div =
-          document.createElement(
-            "div"
-          );
-
-        div.className =
-          "item";
-
-        div.textContent =
-          "📅 " +
-          event.title +
-          " — " +
-          event.datetime;
-
-        events.appendChild(div);
-
-      }
-    );
-
-  }
-
-
-  if(!state.tasks.length){
-
-    tasks.innerHTML =
-      '<div class="empty">Nenhuma tarefa ainda.</div>';
-
-  }else{
-
-    state.tasks.forEach(
-      task => {
-
-        const div =
-          document.createElement(
-            "div"
-          );
-
-        div.className =
-          "item";
-
-        div.textContent =
-          (
-            task.done
-              ? "☑️ "
-              : "⬜ "
-          ) +
-          task.text +
-          " · " +
-          task.priority;
-
-        tasks.appendChild(div);
-
-      }
-    );
-
-  }
-
-
-  if(!state.goals.length){
-
-    goals.innerHTML =
-      '<div class="empty">Nenhum objetivo ainda.</div>';
-
-  }else{
-
-    state.goals.forEach(
-      goal => {
-
-        const div =
-          document.createElement(
-            "div"
-          );
-
-        div.className =
-          "item";
-
-        div.textContent =
-          "🎯 " +
-          goal.text;
-
-        goals.appendChild(div);
-
-      }
-    );
-
-  }
-
+function addMessage(text,type){
+  const div=document.createElement("div");
+  div.className="msg "+type;
+  div.textContent=text;
+  el("chat").appendChild(div);
+  el("chat").scrollTop=el("chat").scrollHeight;
 }
-
-
-/* ==================================
-   CARREGAR ESTADO
-================================== */
 
 async function loadState(){
-
   try{
+    const response=await fetch("/api/state");
+    if(response.ok){
+      appState=await response.json();
+      renderState();
+    }
+  }catch(e){ console.warn("Estado indisponível",e); }
+}
 
-    const response =
-      await fetch(
-        "/api/state"
-      );
+function renderState(){
+  const tasks=Array.isArray(appState.tasks)?appState.tasks:[];
+  const events=Array.isArray(appState.events)?appState.events:[];
+  const goals=Array.isArray(appState.goals)?appState.goals:[];
 
-    const state =
-      await response.json();
+  el("tasksList").innerHTML = tasks.length ? tasks.map(t=>`
+    <div class="item">
+      <button class="check ${t.done?"done":""}" type="button" onclick="completeTask('${escapeAttr(t.text)}')">${t.done?"✓":""}</button>
+      <div class="item-main">${escapeHtml(t.text)}<small>Prioridade: ${escapeHtml(t.priority || "media")}</small></div>
+    </div>`).join("") : '<div class="empty">Nenhuma tarefa ainda.</div>';
 
-    renderState(
-      state
-    );
+  el("eventsList").innerHTML = events.length ? events.map(e=>`
+    <div class="item"><div class="item-main"><strong>${escapeHtml(e.title)}</strong><small>${escapeHtml(e.datetime || "")}</small></div></div>`).join("") : '<div class="empty">Nenhum compromisso ainda.</div>';
 
-  }catch(error){
+  el("goalsList").innerHTML = goals.length ? goals.map(g=>`
+    <div class="item"><div class="item-main"><strong>🎯 ${escapeHtml(g.text)}</strong></div></div>`).join("") : '<div class="empty">Nenhum objetivo ainda.</div>';
+}
 
-    console.error(error);
+function escapeHtml(s){
+  return String(s ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+}
+function escapeAttr(s){ return String(s ?? "").replace(/\\/g,"\\\\").replace(/'/g,"\\'"); }
 
+async function apiToolMessage(message){
+  el("message").value = message;
+  await sendMessage();
+}
+
+async function createTaskFromUI(){
+  const v=el("taskText").value.trim(); if(!v)return;
+  await apiToolMessage("Crie uma tarefa: "+v);
+  el("taskText").value="";
+}
+async function createGoalFromUI(){
+  const v=el("goalText").value.trim(); if(!v)return;
+  await apiToolMessage("Crie um objetivo: "+v);
+  el("goalText").value="";
+}
+async function createEventFromUI(){
+  const v=el("eventTitle").value.trim(); if(!v)return;
+  await apiToolMessage("Crie um compromisso: "+v+". Se precisar de data e hora, me pergunte.");
+  el("eventTitle").value="";
+}
+async function completeTask(text){
+  await apiToolMessage("Conclua a tarefa: "+text);
+}
+
+function openPage(page){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  el(page+"Page").classList.add("active");
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+  if(page!=="home") loadState();
+}
+
+function chooseFile(){ el("fileInput").click(); el("attachMenu").classList.add("hidden"); }
+function chooseGallery(){ el("fileInput").click(); el("attachMenu").classList.add("hidden"); }
+function takePhoto(){ el("cameraInput").click(); el("attachMenu").classList.add("hidden"); }
+
+function selectedFileMessage(file){
+  if(!file)return;
+  addMessage("📎 Arquivo selecionado: "+file.name,"user");
+  addMessage("O anexo foi selecionado. O próximo passo será integrar o envio do arquivo ao backend/Storage.","ai");
+}
+
+function init(){
+  if(!window.supabase){
+    showAuthMessage("Não foi possível carregar o sistema de login. Atualize a página.");
+    return;
   }
 
+  if(
+    SUPABASE_URL.includes("COLE_AQUI") ||
+    SUPABASE_PUBLISHABLE_KEY.includes("COLE_AQUI") ||
+    !SUPABASE_URL.endsWith(".supabase.co")
+  ){
+    showAuthMessage("Configure a Project URL e a Publishable Key no código antes de usar o login.");
+    return;
+  }
+
+  try{
+    supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+  }catch(error){
+    console.error(error);
+    showAuthMessage("A configuração do Supabase está inválida.");
+    return;
+  }
+
+  el("googleBtn").addEventListener("click",signInWithGoogle);
+  el("emailAuthBtn").addEventListener("click",handleEmailAuth);
+  el("authSwitchButton").addEventListener("click",()=>setAuthMode(authMode==="login"?"signup":"login"));
+  el("logoutBtn").addEventListener("click",logout);
+  el("sendBtn").addEventListener("click",sendMessage);
+  el("attachBtn").addEventListener("click",()=>el("attachMenu").classList.toggle("hidden"));
+
+  el("message").addEventListener("keydown",e=>{
+    if(e.key==="Enter" && !e.shiftKey){e.preventDefault();sendMessage();}
+  });
+
+  el("fileInput").addEventListener("change",e=>selectedFileMessage(e.target.files[0]));
+  el("cameraInput").addEventListener("change",e=>selectedFileMessage(e.target.files[0]));
+
+  document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>openPage(b.dataset.page)));
+
+  supabaseClient.auth.onAuthStateChange((event,session)=>{
+    if(session?.user){
+      showApp(session.user);
+    }else if(event==="SIGNED_OUT"){
+      el("appScreen").classList.add("hidden");
+      el("authScreen").classList.remove("hidden");
+    }
+  });
+
+  supabaseClient.auth.getSession().then(({data})=>{
+    if(data.session?.user) showApp(data.session.user);
+  });
 }
 
-
-/* ==================================
-   ANEXOS
-================================== */
-
-function toggleAttachMenu(){
-
-  document
-    .getElementById(
-      "attachMenu"
-    )
-    .classList.toggle(
-      "hidden"
-    );
-
-}
-
-
-function chooseFile(){
-
-  document
-    .getElementById(
-      "attachMenu"
-    )
-    .classList.add(
-      "hidden"
-    );
-
-  document
-    .getElementById(
-      "fileInput"
-    )
-    .click();
-
-}
-
-
-function openGallery(){
-
-  document
-    .getElementById(
-      "attachMenu"
-    )
-    .classList.add(
-      "hidden"
-    );
-
-  const input =
-    document.getElementById(
-      "fileInput"
-    );
-
-  input.accept =
-    "image/*";
-
-  input.click();
-
-}
-
-
-function openCamera(){
-
-  document
-    .getElementById(
-      "attachMenu"
-    )
-    .classList.add(
-      "hidden"
-    );
-
-  document
-    .getElementById(
-      "cameraInput"
-    )
-    .click();
-
-}
-
-
-/* ==================================
-   INICIAR
-================================== */
-
-checkSession();
-
+init();
 </script>
-
 </body>
 </html>
