@@ -1048,100 +1048,66 @@ function clearAuthMessage(){
    EMAIL / SENHA
 ================================== */
 
-async function handleEmailAuth(){
-
+async function handleEmailAuth() {
   clearAuthMessage();
 
-  const email =
-    document.getElementById(
-      "authEmail"
-    ).value.trim();
+  const email = document.getElementById("authEmail").value.trim();
+  const password = document.getElementById("authPassword").value;
 
-  const password =
-    document.getElementById(
-      "authPassword"
-    ).value;
-
-
-  if(!email || !password){
-
-    showAuthMessage(
-      "Preencha seu e-mail e sua senha."
-    );
-
+  if (!email || !password) {
+    showAuthMessage("Preencha seu e-mail e sua senha.");
     return;
   }
 
+  try {
+    if (authMode === "signup") {
 
-  if(authMode === "signup"){
+      const { data, error } =
+        await supabaseClient.auth.signUp({
+          email: email,
+          password: password
+        });
 
-    const {
-      data,
-      error
-    } =
-      await supabaseClient.auth.signUp({
+      if (error) {
+        showAuthMessage(error.message);
+        return;
+      }
 
-        email,
-        password
+      if (data.session) {
+        showApp(data.user);
+      } else {
+        showAuthMessage(
+          "Conta criada! Verifique seu e-mail para confirmar a conta.",
+          true
+        );
+      }
 
-      });
+    } else {
 
+      const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
 
-    if(error){
+      if (error) {
+        showAuthMessage(error.message);
+        return;
+      }
 
-      showAuthMessage(
-        error.message
-      );
+      if (data.session) {
+        showApp(data.user);
+      }
 
-      return;
     }
 
+  } catch (error) {
+    console.error("ERRO DE AUTENTICAÇÃO:", error);
 
-    if(data.session){
-
-      showApp(
-        data.user
-      );
-
-    }else{
-
-      showAuthMessage(
-        "Conta criada! Verifique seu e-mail para confirmar a conta.",
-        true
-      );
-
-    }
-
-  }else{
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient.auth.signInWithPassword({
-
-        email,
-        password
-
-      });
-
-
-    if(error){
-
-      showAuthMessage(
-        "E-mail ou senha incorretos."
-      );
-
-      return;
-    }
-
-
-    showApp(
-      data.user
+    showAuthMessage(
+      "Não foi possível conectar ao sistema de login. Tente novamente."
     );
-
   }
-
 }
 
 
