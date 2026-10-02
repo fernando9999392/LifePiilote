@@ -355,7 +355,7 @@ function renderState(){
     <div class="item"><div class="item-main"><strong>🎯 ${escapeHtml(g.text)}</strong></div></div>`).join(""):'<div class="empty">Nenhum objetivo ainda.</div>';
 }
 
-function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",""":"&quot;","'":"&#039;"}[c]));}
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));}
 function escapeAttr(s){return String(s??"").replace(/\\/g,"\\\\").replace(/'/g,"\\'");}
 async function apiToolMessage(message){el("message").value=message;await sendMessage();}
 async function createTaskFromUI(){const v=el("taskText").value.trim();if(!v)return;await apiToolMessage("Crie uma tarefa: "+v);el("taskText").value="";}
